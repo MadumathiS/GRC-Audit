@@ -1,273 +1,273 @@
-# NVIDIA Regional R&D Hub — Compliance Audit
+# GRC-Audit: NVIDIA Regional R&D Hub
 
-**Project Reference:** NVIDIA-REG-RD-2026-1106  
-**Audit Type:** Design-Based Compliance Assessment  
-**Audit Date:** September 2026  
-
----
-
-## 📋 Project Overview
-
-This repository contains a comprehensive **compliance audit** of the NVIDIA Regional R&D and Production Hub network design. The audit compares the design deliverables against regulatory requirements and security frameworks to identify gaps before the facility goes live.
-
-### What We're Auditing
-
-- **Client:** NVIDIA Corporation
-- **Facility:** Regional R&D and Production Hub
-- **Location:** Belgium
-- **Scope:** Complete network design covering 48 workstations across 5 operational sectors
-- **CapEx Constraint:** €300,000 ceiling
-- **Assets:** Network infrastructure, servers, services, and employee data
-
-### Audit Deliverables
-
-1. ✅ **Audit Checklist** — 12-15 specific controls mapped to frameworks
-2. ✅ **Findings** — Identified gaps with evidence citations
-3. ✅ **Risk Register** — Prioritized findings with severity ratings
-4. ✅ **NIS2 Incident Notification** — Regulatory exercise
-5. ✅ **Team Presentation** — Executive summary and recommendations
-
-### Applicable Regulations
-
-| Regulation | Applies? | Reason |
-|-----------|----------|--------|
-| **GDPR** | ✅ YES | Employee personal data (names, IDs, salaries) |
-| **NIS2** | ✅ YES | R&D critical sector, 48+ employees |
-| **ISO/IEC 27001:2022** | ✅ YES | Reference framework for audit |
-| **CyFun (CCB)** | ✅ YES | Belgian security framework |
-| **Cyber Resilience Act** | ❌ NO | Not a product manufacturer |
-| **DORA** | ❌ NO | Not a financial entity |
-| **AI Act** | ❓ UNCERTAIN | Needs clarification on system use |
-
-See `01-scope-and-applicability/applicability-note.md` for full analysis.
+**Project:** Network Security Audit & Compliance Assessment  
+**Organization:** NVIDIA Corporation (Regional R&D Hub)  
+**Service Provider:** Full Duplex (Network Implementation)  
+**Audit Type:** Infrastructure Security Review (Packet Tracer Simulation)  
+**Status:** Final Report  
+**Date:** September 2026
 
 ---
 
-## 👥 Team
+## 📋 Quick Navigation
 
-| Name | Role | Responsibilities | GitHub Handle |
-|------|------|------------------|---|
-| **[Team Lead Name]** | Lead Auditor | Overall coordination, regulatory mapping, consistency | @[handle] |
-| **[Technical Name]** | Technical Auditor | Access control, network segmentation, logging | @[handle] |
-| **[Process Name]** | Process Auditor | Governance, data protection, supply chain | @[handle] |
-| **[Documentation Name]** | Documentation Lead | Findings write-up, evidence tracking, register | @[handle] |
-
+| Section | Purpose | Location |
+|---------|---------|----------|
+| **Audit Charter** | Project scope & compliance framework | `supporting-docs/` |
+| **Checklist** | Control assessment summary | `deliverables/checklist.md` |
+| **Findings** | Detailed control validations (3 findings) | `deliverables/findings/` |
+| **Risk Register** | Risk assessment & mitigation status | `deliverables/risk-register.md` |
+| **Evidence** | Network design, test reports, RFQ | `evidence/` |
 
 ---
 
-## 🗂️ Repository Structure
+## 🎯 Executive Summary
+
+### Audit Scope
+
+This audit validates the **NVIDIA Regional R&D Hub network infrastructure** against:
+- **ISO/IEC 27001:2022** (Information Security Management)
+- **GDPR Article 32** (Technical Security Measures)
+- **NIS2 Directive** (Network & Information Security)
+- **CyFun Framework** (Belgian Cyber Fundamentals)
+
+### In-Scope Infrastructure
 
 ```
-Grc-Audit/
+Network Architecture:
+├── 2 Spine (Core) Switches (Layer 3, OSPF routing)
+├── 3 Leaf Switches (Distribution layer, VLAN termination)
+├── 6 Access Switches (Department connectivity)
+├── 1 ASA Firewall (Perimeter security, DMZ protection)
+├── 1 Edge Router (Internet gateway, Syslog forwarding)
+├── 1 Syslog Server (Centralized event logging)
+└── 48 Workstations + 10 GPU Systems (Endpoints)
+
+Scope Areas:
+- Network segmentation (9 VLANs, DMZ isolation)
+- Access control (ACLs, port security, SSH-only management)
+- Logging & monitoring (Syslog, RADIUS, event capture)
+- Redundancy & high availability (OSPF, spanning tree)
+```
+
+### Audit Results
+
+| Finding | Title | Status | Risk |
+|---------|-------|--------|------|
+| **F-01** | VLAN 1 Hardening | ✅ IMPLEMENTED | LOW |
+| **F-02** | Firewall & Syslog | ✅ OPERATIONAL | LOW |
+| **F-03** | Access Switch Logging | ✅ EFFECTIVE | LOW |
+
+**Overall Assessment:** ✅ **CONTROLS EFFECTIVE** — No critical remediation required.
+
+---
+
+## 📁 Repository Structure
+
+```
+## 📁 Repository Structure
+
+GRC-Audit/
+├── README.md (this file)
+├── .gitignore
 │
-├── README.md                          # You are here
-├── .gitignore                         # Git rules (ignore large files, secrets)
+├── deliverables/
+│   ├── findings/
+│   │   ├── F-01-VLAN-Segmentation-Validated.md
+│   │   │   └── VLAN segmentation validated; 4 tests PASS
+│   │   │
+│   │   ├── F-02-Firewall-Authentication-Validated.md
+│   │   │   └── ASA firewall & RADIUS validated; 6 tests PASS
+│   │   │
+│   │   ├── F-03-Logging-Monitoring-Validated.md
+│   │   │   └── Syslog logging validated; 4 tests PASS
+│   │   │
+│   │   ├── checklist.md
+│   │   │   └── Control assessment summary (25 controls evaluated)
+│   │   │
+│   │   └── risk-register.md
+│   │       └── Risk assessment & mitigation strategies
 │
-├── 01-scope-and-applicability/        # STEP 1: What are we auditing?
-│   ├── asset-inventory.md             # All assets: VLANs, servers, data
-│   ├── applicability-note.md          # Which regulations apply & why
-│   └── scope-statement.md             # Audit boundaries & limitations
-│
-├── 02-audit-checklist/                # STEP 2: What will we check?
-│   ├── checklist-final.md             # 12-15 specific checks
-│   └── control-mapping.md             # How checks map to regulations
-│
-├── 03-audit-execution/                # STEP 3: What did we find?
-│   ├── checklist-results.md           # All results (pass/fail/partial)
-│   ├── findings/                      # Individual findings
-│   │   ├── F-01-[title].md
-│   │   ├── F-02-[title].md
-│   │   └── [more findings...]
-│   └── evidence-log.md                # Where evidence came from
-│
-├── 04-risk-and-notification/          # STEP 4: How serious are they?
-│   ├── rating-scale.md                # Likelihood × Impact scale
-│   ├── risk-register.md               # Findings with severity ratings
-│   ├── nis2-incident-notification.md  # Regulatory exercise
-│   └── risk-analysis.md               # Why we rated things certain ways
-│
-│
-├── evidence/                          # Source materials (linked, not committed)
-│   ├── EVIDENCE_GUIDE.md              # How to cite evidence
-│   ├── RFQ/                           # Client requirements
-│   ├── design-document/               # Design deliverables
-│   └── NOTES.md                       # Links to actual evidence files
-│
-│
-└── references/                        # Learning materials
-    ├── security-concepts.md           # Quick reference
-    ├── regulations-summary.md         # Key points
-    └── audit-method-notes.md          # Methodology recap
+├── evidence/
+│   ├── design-document/
+│   │   ├── Nvidia_network.pkt
+│   │   │   └── Packet Tracer network simulation & configuration
+│   │   │
+│   │   ├── Final_NVIDIA_Network_Security_Project_Testing_Report.pdf
+│   │   │   └── Comprehensive 51-page testing report (ALL TESTS PASS)
+│   │   │       Covers: VLAN, Firewall, RADIUS, NAT, DMZ, Syslog, etc.
+│   │   │
+│   │   ├── NVIDIA_Project_Report.pdf
+│   │   │   └── 60-page project overview & validation summary
+│   │   │
+│   │   ├── Network-Implementation-Report.pdf
+│   │   │   └── Network design, VLAN layout, architecture decisions
+│   │   │
+│   │   ├── NVIDIA-Security-Configuration.docx
+│   │   │   └── Firewall rules, ACLs, Syslog, RADIUS configuration
+│   │   │
+│   │   ├── NVIDIA-Device-Configuration.docx
+│   │   │   └── Device-level settings, SSH, management VLAN
+│   │   │
+│   │   ├── NVIDIA-VLAN-Subnet-Worksheet.docx
+│   │   │   └── IP addressing plan, VLAN allocation, gateways
+│   │   │
+│   │   ├── A-Well-Routed-Router.pdf
+│   │   │   └── Router configuration reference guide
+│   │   │
+│   │   ├── why_leaf_and_spine.docx
+│   │   │   └── Architecture justification, OSPF, ECMP benefits
+│   │   │
+│   │   ├── Packet-tracer-limitations.docx
+│   │   │   └── Simulator constraints, production recommendations
+│   │   │
+│   │   ├── NVIDIA_RFQ_v2.pdf
+│   │   │   └── Requirements baseline for audit scope
+│   │   │
+│   │   ├── Contract.pdf
+│   │   │   └── Full Duplex service contract
+│   │   │
+│   │   ├── INSURANCE_CONTRACT___PROPOSAL.pdf
+│   │   │   └── Hardware & cyber risk insurance coverage
+│   │   │
+│   │   ├── NVIDIA_Regional_R_D_Hub___Cost_Breakdown.pdf
+│   │   │   └── Asset valuation & cost analysis
+│   │   │
+│   │   ├── evidence-guide.md
+│   │   │   └── How to cite evidence in findings
+│   │   │
+│   │   └── NOTES.md
+│   │       └── External references (Cisco, standards, regulations)
+│   │
+│   └── supporting-docs/
+│       ├── applicability-note.md
+│       │   └── Audit scope mapping to ISO 27001, GDPR, NIS2, CyFun
+│       │
+│       ├── asset-inventory.md
+│       │   └── Network devices, workstations, GPU systems
+│       │
+│       └── scope-statement.md
+│           └── In-scope areas, audit period, testing approach
 ```
 
 ---
 
-## 🚀 How to Use This Repository
+## 🔍 How to Use This Repository
 
-### First Time Setup
+### For Audit Stakeholders
 
-```bash
-# Clone the repository
-git clone https://github.com/MadumathiS/Grc-Audit.git
-cd GRC-Audit
+1. **Start Here:**
+   - Read `supporting-docs/scope-statement.md` (what was audited)
+   - Review `deliverables/checklist.md` (control summary)
+   - Review `deliverables/risk-register.md` (risk assessment)
 
-# Create your local branch
-git checkout -b feature/[your-task]
+2. **Review Findings:**
+   - Open `deliverables/findings/` directory
+   - Read each finding (F-01, F-02, F-03)
+   - Each finding references specific evidence with document names & section numbers
 
-# Verify you're on the right branch
-git branch -a
-```
+3. **Verify Evidence:**
+   - Open `evidence/evidence-guide.md` to understand citation format
+   - Follow citation references to specific files in `evidence/` directory
+   - Locate evidence in PKT file, test reports, or RFQ documents
 
+### For Auditors/Validators
 
----
+1. **Validate Control Implementation:**
+   ```
+   For each finding:
+   1. Read evidence section (what was tested)
+   2. Open referenced PKT file or test report
+   3. Verify that configuration/test result matches described evidence
+   4. Confirm assessment is accurate
+   ```
 
-## 📖 Important Concepts
+2. **Check Compliance Mapping:**
+   - Each finding includes mapping to ISO 27001, GDPR, NIS2, CyFun
+   - Cross-reference with `supporting-docs/applicability-note.md`
 
-### Evidence Traceability
+3. **Review Risk Assessment:**
+   - Open `deliverables/risk-register.md`
+   - Verify risk ratings match control effectiveness
 
-**Every finding must point to specific evidence.** Examples:
+### For Operations/Implementation Teams
 
-- **Design Document:**  "Section: Security Measures, Page: 9"
-- **Packet Tracer:** "Device: Core-SW-01, Interface: Gi0/1, Config: ACL-not-applied"
-- **RFQ:** "§2.3 Technical Scope" or "Section: Requirements"
+1. **Understand Network Design:**
+   - Read `evidence/design-document/Network-Implementation-Report.pdf`
+   - Review `evidence/design-document/Nvidia_network.pkt` (topology)
+   - Check `evidence/design-document/NVIDIA-VLAN-Subnet-Worksheet.docx` (IP plan)
 
-**Format:** `Document name, specific location, specific detail`
+2. **Implement Production Changes:**
+   - Refer to `evidence/design-document/NVIDIA-Security-Configuration.docx`
+   - Use Cisco documentation links in `evidence/NOTES.md`
+   - Follow "Follow-up Actions" section in each finding
 
-### Rating Scale
-
-Findings are rated using **Likelihood × Impact**:
-
-```
-LIKELIHOOD: How probable is exploitation?
-├─ 3 (High):   No controls prevent it; common technique; easy to exploit
-├─ 2 (Medium): Some controls exist, but partial or can be bypassed
-└─ 1 (Low):    Requires special conditions; insider access; rare scenario
-
-IMPACT: How bad if it happens?
-├─ 3 (High):   Affects sensitive data, operations, or business continuity
-├─ 2 (Medium): Affects one sector or one service; moderate recovery time
-└─ 1 (Low):    Limited effect; easily recovered; non-sensitive data
-
-MULTIPLY TO GET SCORE:
-9 = CRITICAL (fix immediately)
-6 = HIGH (fix within 30 days)
-3-4 = MEDIUM (fix within 90 days)
-1-2 = LOW (nice to have; fix if resources available)
-```
-
-**Important:** This scale must be applied **consistently** throughout the audit. See `04-risk-and-notification/rating-scale.md` for full details and examples.
-
-### Control Types
-
-Not all controls do the same thing:
-
-| Type | Purpose | Example |
-|------|---------|---------|
-| **Preventive** | Stop attacks before they happen | Firewalls, MFA, encryption |
-| **Detective** | Identify attacks in progress or after | Logging, monitoring, SIEM |
-| **Corrective** | Respond and recover from attacks | Incident response plans, backups |
-| **Governance** | Document, own, and manage controls | Policies, procedures, training |
+3. **Production Recommendations:**
+   - Each finding includes "Auditor Notes" with production requirements
+   - Review `evidence/Packet-tracer-limitations.docx` for simulator constraints
+   - Implement additional controls noted as "Production Requirement"
 
 ---
 
-## 🔍 Key Regulations Explained
+## 📊 Control Assessment Summary
 
-### GDPR — Personal Data Protection
-**What it means:** Protect personal data of EU residents; report breaches within 72 hours  
-**Applies here:** Employee records (names, national IDs, salaries)  
-**Key deadline:** 72-hour breach notification to APD/GBA
+### Finding Breakdown
 
-### NIS2 — Critical Infrastructure Security
-**What it means:** Critical organizations must implement security measures; report incidents quickly  
-**Applies here:** R&D is a critical sector; hub has 48+ employees  
-**Key deadlines:** 24h early warning → 72h notification → 1 month final report
+**F-01: VLAN 1 Hardening** (Best Practice)
+- **Status:** ✅ IMPLEMENTED
+- **Risk:** LOW
+- **Evidence:** PKT file, network design document, architecture justification
+- **Impact:** Prevents 802.1Q double-tagging VLAN hopping attacks
+- **Compliance:** ISO 27001 A.13.1.3, NIST PR.AC-5
 
-### ISO/IEC 27001:2022 — Security Management
-**What it means:** Framework with 93 controls for information security  
-**Applies here:** Used as reference framework for all audit checks  
-**Key:** 4 themes: Organizational, People, Physical, Technological
+**F-02: Firewall & Syslog Logging** (Control Implementation)
+- **Status:** ✅ OPERATIONAL (All 8 firewall test sections PASSED)
+- **Risk:** LOW
+- **Evidence:** 15+ test reports, ASA configuration, Syslog event logs
+- **Impact:** Perimeter security, centralized event logging for incident detection
+- **Compliance:** ISO 27001 A.12.4.1, GDPR Article 32, NIS2 Article 23
 
-### CyFun (CCB) — Belgian Security Framework
-**What it means:** Belgium's practical security checklist (3 levels: Basic, Important, Essential)  
-**Applies here:** Belgium-specific guidance; maps to ISO 27001  
-**Key:** Used for access control, segmentation, logging checks
-
-For full details, see `references/regulations-summary.md` or read the main module documentation.
-
----
-
-## ⚠️ Important Limitations & Disclaimers
-
-### What This Audit Does
-
-✅ Compares design document against regulatory requirements  
-✅ Identifies gaps between design and configuration  
-✅ Cites specific controls from recognized frameworks  
-✅ Rates findings consistently using a documented scale  
-✅ Provides actionable recommendations  
-
-### What This Audit Does NOT Do
-
-❌ Conduct a penetration test or hacking exercise  
-❌ Verify that documented policies are followed in practice  
-❌ Test a running production system  
-❌ Provide legal advice (we are not lawyers)  
-❌ Guarantee absence of vulnerabilities  
-
-### Scope Boundaries
-
-**In Scope:**
-- Network design document (PDF)
-- Packet Tracer simulation
-- NVIDIA RFQ requirements
-- Belgian/EU regulatory requirements
-
-**Out of Scope:**
-- Physical security of data center
-- Actual employee security practices
-- Vendor security assessments (only documented requirements)
-- Backup/recovery testing (only documented procedures)
-
-See `01-scope-and-applicability/scope-statement.md` for complete scope.
+**F-03: Access Switch Logging** (Control Implementation)
+- **Status:** ✅ EFFECTIVE (All port tests PASSED)
+- **Risk:** LOW
+- **Evidence:** Switch interface tests, spanning tree validation, event logs
+- **Impact:** Department-level segmentation, unused port containment, event auditing
+- **Compliance:** ISO 27001 A.13.1.3 + A.9.2.1, GDPR Article 32, NIS2
 
 ---
 
-## 📚 References & Resources
 
-### Framework Documentation
+## 📋 Audit Metadata
 
-- **ISO/IEC 27001:2022** — https://www.iso.org/standard/27001
-  - 93 controls in 4 themes: Organizational, People, Physical, Technological
-  - Official reference for most audit checks
-
-- **CyFun (CCB)** — https://atwork.safeonweb.be/cyberfundamentals-framework
-  - Belgium's practical security framework
-  - Aligned with NIST CSF 2.0 and ISO 27001
-
-- **NIST CSF 2.0** — https://www.nist.gov/cyberframework
-  - Reference architecture used as basis for all frameworks
-  - Functions: Govern, Identify, Protect, Detect, Respond, Recover
-
-### Regulatory Authorities
-
-**Belgium:**
-- **CCB** (Centre for Cybersecurity Belgium) — https://ccb.belgium.be/en
-  - NIS2 oversight and enforcement
-  - Incident reporting: https://notif.safeonweb.be
-
-- **APD/GBA** (Data Protection Authority) — https://www.autoriteprotectiondonnees.be
-  - GDPR enforcement
-  - Breach notification: https://moncompte.autoriteprotectiondonnees.be
-
-**EU:**
-- **EDPB** (Data Protection Board) — https://www.edpb.europa.eu
-- **ENISA** (Cybersecurity Agency) — https://www.enisa.europa.eu
-
-### Module Documentation
-
-- `01_SecurityConcepts.md` — CIA Triad, assets, threat modeling
-- `02_Regulations.md` — Full regulatory requirements
-- `03_AuditMethod.md` — Audit methodology and finding structure
-- `04_FinalProject.md` — Project brief and requirements
+| Attribute | Value |
+|-----------|-------|
+| **Audit Period** | Q3 2026 (Packet Tracer simulation) |
+| **Testing Method** | Network simulation + design review |
+| **Frameworks** | ISO 27001, GDPR, NIS2, CyFun |
+| **Scope** | Network infrastructure (Spine-Leaf, DMZ, access layer) |
+| **Total Controls Assessed** | 25 |
+| **Findings Count** | 3 (all LOW risk) |
+| **Test Reports Count** | 18 comprehensive test reports |
+| **Evidence Files** | 25+ supporting documents |
+| **Status** | ✅ FINAL - No critical remediation required |
 
 ---
+
+## 🔐 Confidentiality Notice
+
+This audit report contains sensitive information about NVIDIA's network infrastructure, security configurations, and compliance posture. 
+
+**Handling Requirements:**
+- Restricted to authorized audit stakeholders only
+- Do not distribute externally without written permission
+- Destroy or securely archive after retention period
+- Report security issues immediately via SafeOnWeb (Belgium): https://notif.safeonweb.be
+
+---
+
+**For more information, see:**
+- `deliverables/checklist.md` — Full control checklist
+- `deliverables/findings/` — All findings with evidence
+- `evidence/evidence-guide.md` — How to read the evidence
+- `supporting-docs/scope-statement.md` — Audit scope details
+

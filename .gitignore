@@ -1,0 +1,91 @@
+# GRC-Audit Repository - .gitignore
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
+*.code-workspace
+.vs/
+
+# Build & Dependency Artifacts
+node_modules/
+*.egg-info/
+dist/
+build/
+*.pyc
+__pycache__/
+.pytest_cache/
+
+# Temporary Files
+*.tmp
+*.log
+*.bak
+*.orig
+temp/
+tmp/
+
+# Sensitive Data (DO NOT COMMIT)
+*.key
+*.pem
+*.pfx
+*.p12
+secrets.env
+.env
+.env.local
+credentials.json
+tokens.json
+password.txt
+
+# Cisco Network Simulation Artifacts
+# (Only commit .pkt file, not temp backups)
+*.pkt~
+*.bak
+*.prev
+Packet Tracer temp/
+
+# Office Document Backups
+~$*.docx
+~$*.xlsx
+~$*.pptx
+.~lock.*
+
+# PDF Temporary Files
+*.pdf.tmp
+
+# Vim/Nano
+.swp
+.swo
+*~
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup Directories
+backups/
+old/
+archive/
+
+# Custom Exclusions
+# (Add any project-specific items below)
+
+# Keep these files (force add if excluded)
+!.gitkeep
+!README.md
+!evidence-guide.md
+!NOTES.md
+
