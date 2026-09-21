@@ -1,10 +1,22 @@
 # GRC Audit: NVIDIA Regional R&D Hub Network Infrastructure
 
 **Project ID:** NVIDIA-REG-RD-2026-1106  
-**Audit Date:** 21 September 2026  
-**Status:** FINAL & CORRECTED  
+**Audit Date:**  September 2026  
+**Status:** FINAL  
 **Client:** NVIDIA Corporation (Brussels)  
 **Frameworks:** ISO 27001:2022, GDPR Article 32, NIS2 Directive, CyberFundamentals (CyFun)
+
+---
+
+## 👥 Audit Team: Control Freaks
+
+| Role | Auditor | Responsibility |
+|------|---------|---|
+| **Technical Network Auditor** | Madumathi Singaraju | Packet Tracer review, VLANs, ACLs, firewall, DMZ, technical evidence collection |
+| **Regulatory & Compliance Auditor** | Hanah Marroun | Applicability note, NIS2, GDPR, ISO 27001, CyFun framework validation |
+| **Audit Coordinator, Risk & Reporting** | Sajjad Shahpoor | Logging, AAA, availability review; findings coordination, risk register, final reporting |
+
+---
 
 ---
 
@@ -38,7 +50,7 @@ GRC-Audit/
 │
 ├── deliverables/
 │   ├── findings/
-│   │   ├── 01-Critical-Findings.md
+│   │   ├── F-01-Critical-Findings.md
 │   │   │   └── 5 critical & high-risk findings with recommendations
 │   │   │
 │   │   ├── checklist.md
@@ -262,4 +274,35 @@ GRC-Audit/
    - README, risk register, and findings all tell the same story
    - If they disagree, fix it before submitting
 
+
 ---
+**Framework Versions:** ISO 27001:2022, GDPR (current), NIS2 (2022), CyFun 2025
+
+For detailed guidance, see individual documents in `deliverables/` and `evidence/`.
+
+---
+
+## 🏆 About Control Freaks
+
+This audit was conducted by **Control Freaks**, a specialized GRC audit team comprised of:
+
+**Madumathi Singaraju** — Technical Network Auditor
+- Deep expertise in network design and Cisco device configuration
+- Led review of Packet Tracer simulation, VLAN segmentation, ACLs, firewall rules, and DMZ architecture
+- Ensured all technical findings are grounded in actual configuration evidence
+
+**Hanah Marroun** — Regulatory & Compliance Auditor
+- Specialized knowledge in GDPR, ISO 27001:2022, NIS2 Directive, and CyberFundamentals framework
+- Prepared the applicability note establishing legal foundation for audit scope
+- Validated all framework references and compliance requirements
+
+**Sajjad Shahpoor** — Audit Coordinator, Risk & Reporting
+- Coordinated end-to-end audit execution and stakeholder communication
+- Reviewed logging (Syslog), AAA (RADIUS), and availability (redundancy) controls
+- Built the risk register with consistent ratings, established remediation timeline, and delivered final presentation and reporting materials
+
+Together, Control Freaks delivered a comprehensive, evidence-based audit bridging technical reality and regulatory compliance.
+
+---
+
+*"An audit is only as good as the team executing it. Control Freaks brought technical rigor, compliance expertise, and coordinated execution to deliver this assessment."*
