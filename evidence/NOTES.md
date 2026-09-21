@@ -1,228 +1,365 @@
-# External Evidence References
+# NOTES — External References & Standards
 
-**Project:** GRC-Audit (NVIDIA Regional R&D Hub)  
-**Purpose:** Links to vendor documentation, standards, and regulatory references  
-**Status:** Final
-
----
-
-## Table of Contents
-1. [Cisco Vendor Documentation](#cisco-vendor-documentation)
-2. [Regulatory References](#regulatory-references)
-3. [Industry Standards & Frameworks](#industry-standards--frameworks)
-4. [Packet Tracer Limitations](#packet-tracer-limitations)
-5. [Cryptography & Security Protocols](#cryptography--security-protocols)
+**Project ID:** NVIDIA-REG-RD-2026-1106  
+**Reference Guide:** Links to frameworks, standards, and external resources  
+**Status:** INFORMATIONAL
 
 ---
 
-## Cisco Vendor Documentation
+## Regulatory Frameworks
 
-These resources provide configuration guidance and best practices for Cisco network devices used in this project.
+### ISO 27001:2022 — Information Security Management System
 
-### Catalyst Switches
-- **Catalyst 9300 Series Documentation:** https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series/products-support.html
-- **Switch Configuration Guide:** https://www.cisco.com/c/en/us/td/docs/switches/catalyst9300/cat9300_xe_316/configuration/guide/
-- **Spanning Tree Protocol (STP) Configuration:** https://www.cisco.com/c/en/us/support/docs/lan-switching/spanning-tree-protocol/
-- **VLAN Configuration Best Practices:** https://www.cisco.com/c/en/us/support/docs/lan-switching/vlan/
+- **Official Standard:** https://www.iso.org/standard/27001
+- **Current Version:** ISO/IEC 27001:2022 (released October 2022)
+- **Scope:** Information security controls across 14 categories (Clauses 5–8, Annex A)
+- **Reference:** This audit maps findings to ISO 27001:2022 Annex A controls (A.5.1–A.8.24)
+- **Key Clauses for This Audit:**
+  - A.5.17: Authentication information management
+  - A.5.19–5.21: Supplier relationships (supply chain security)
+  - A.8.2: Privileged access management
+  - A.8.5: Secure authentication (SSH, RADIUS)
+  - A.8.13: Backup controls
+  - A.8.14: Redundancy / high availability
+  - A.8.15: Logging (syslog)
+  - A.8.16: Monitoring
+  - A.8.20: Network security
+  - A.8.22: Segregation of networks (VLANs)
 
-### ASA Firewall
-- **ASA 5500-X Series Firewall:** https://www.cisco.com/c/en/us/support/security/asa-5500-series-next-generation-firewalls/
-- **ASA Configuration Guide:** https://www.cisco.com/c/en/us/td/docs/security/asa/asa-command-reference/
-- **Firewall ACL Configuration:** https://www.cisco.com/c/en/us/support/docs/security/asa-5500-series-next-generation-firewalls/
-- **NAT/PAT on ASA:** https://www.cisco.com/c/en/us/support/docs/security/asa-5500-series-next-generation-firewalls/
+**How to Access:**
+- Purchase from ISO: https://www.iso.org/standard/27001 (€198 CHF)
+- Free preview/summary: NIST CSF correlation charts online
+- This audit references specific clauses; consult the standard for full text
 
-### Routing & OSPF
-- **OSPF Routing Protocol:** https://www.cisco.com/c/en/us/support/docs/ip/open-shortest-path-first-ospf/
-- **ECMP Load Balancing:** https://www.cisco.com/c/en/us/support/docs/ip/open-shortest-path-first-ospf/
-
-### Management & Logging
-- **Syslog Configuration on Cisco Devices:** https://www.cisco.com/c/en/us/support/docs/networking_solutions/ip_communications/
-
-### Packet Tracer
-- **Cisco Packet Tracer Download:** https://www.netacad.com/cisco-packet-tracer
-- **Packet Tracer Tutorial & Documentation:** https://www.netacad.com/courses/packet-tracer
-- **Known Limitations Discussion:** https://learningnetwork.cisco.com/s/packet-tracer-forum
-
----
-
-## Regulatory References
-
-These documents define compliance requirements for the NVIDIA Regional R&D Hub project.
-
-### GDPR (EU General Data Protection Regulation)
-- **GDPR Official Text:** https://gdpr-info.eu/
-- **Article 32 (Security Measures):** https://gdpr-info.eu/art-32-gdpr/
-  - Requires implementation of pseudonymization, encryption, ability to restore availability, and audit trails
-- **Article 33 (Notification of Breach):** https://gdpr-info.eu/art-33-gdpr/
-  - 72-hour notification requirement to competent authority
-- **Article 34 (Communication of Breach):** https://gdpr-info.eu/art-34-gdpr/
-  - Notification to data subjects when high risk is present
-- **Recital 83 (Technical Measures):** https://gdpr-info.eu/recitals/recital-83/
-  - Guidance on appropriate technical and organizational measures
-
-### NIS2 (Network & Information Security Directive 2)
-- **Official NIS2 Directive Text:** https://eur-lex.europa.eu/eli/dir/2022/2555/oj
-- **Article 23 (Incident Notification):** https://eur-lex.europa.eu/eli/dir/2022/2555/oj
-  - 24-hour early warning to CSIRT (Article 23(1))
-  - 72-hour incident notification requirement (Article 23(3))
-- **Article 21 (Cybersecurity Risk Management):** https://eur-lex.europa.eu/eli/dir/2022/2555/oj
-  - Requirement to manage cybersecurity risks including logging & monitoring
-- **Essential Cybersecurity Measures:** https://eur-lex.europa.eu/eli/dir/2022/2555/oj
-  - Network segmentation, access control, incident response
-
-### CyFun (Belgian Cyber Fundamentals)
-- **CCB Framework (Belgium):** https://atwork.safeonweb.be/cyberfundamentals-framework
-- **Incident Reporting Portal (SafeOnWeb):** https://notif.safeonweb.be
-- **Belgian Cybersecurity Requirements:** https://www.safeonweb.be/
-
-### Belgium Data Protection Authority (APD/GBA)
-- **APD Official Site:** https://www.autoriteprotectiondonnees.be/
-- **Guidance Documents:** https://www.autoriteprotectiondonnees.be/ressources
+**Audit Mapping:** See `applicability-note.md` (Section 2.1) for full control mapping
 
 ---
 
-## Industry Standards & Frameworks
+### GDPR (General Data Protection Regulation)
 
-### ISO/IEC 27001:2022 (Information Security Management)
-- **ISO Standard Reference:** https://www.iso.org/standard/27001
-- **Key Controls Used in This Audit:**
-  - **A.9.2.1** - User access management (authentication, access control)
-  - **A.12.4.1** - Event logging (security event logging and monitoring)
-  - **A.13.1.3** - Network isolation (VLAN segmentation, DMZ architecture)
-  - **A.14.1** - Information security incident management
+- **Legal Instrument:** EU Regulation 2016/679
+- **Current Date:** December 2023 (as amended; no major changes since 2016 text)
+- **Scope:** Personal data protection for EU residents
+- **Official Text:** https://eur-lex.europa.eu/eli/reg/2016/679/oj
+- **Key Articles for This Audit:**
+  - Art. 5: Principles (lawfulness, fairness, transparency, confidentiality, integrity)
+  - Art. 30: Records of Processing Activities (data inventory)
+  - Art. 32: Technical & organisational measures
+  - Art. 33: Breach notification to authority (72 hours)
+  - Art. 34: Notification to individuals
 
-### NIST Cybersecurity Framework 2.0
-- **Official Framework:** https://www.nist.gov/cyberframework
-- **Mapping to This Project:**
-  - **PR.AC-5** - Access control and identity management (VLAN, SSH, AAA)
-  - **PR.PT-3** - Unauthorized physical access prevention (network segmentation)
-  - **DE.AE-1** - Anomalies detected (Syslog monitoring, event logging)
+**GDPR Article 32 (Technical Measures):**
+- Encryption in transit (SSH for management) — **F-GAP-04: PARTIAL**
+- Encryption at rest — Out of scope (not documented)
+- Pseudonymization/anonymization — Out of scope
+- Confidentiality, integrity, resilience — **F-GAP-01: CRITICAL (logging missing)**
+- Availability & restoration capability — **F-GAP-07: MEDIUM (backup missing)**
 
-### CIS Benchmarks
-- **CIS Cisco IOS Benchmark:** https://www.cisecurity.org/benchmark/cisco_ios
-- **CIS Catalyst Switches:** https://www.cisecurity.org/cis-benchmarks/
-- **Key Controls:**
-  - 3.1 - Disable unused network interfaces
-  - 3.3 - Address unauthorized network access
-  - 1.1 - Use strong authentication and encryption
-  - 4.1 - Configure logging and monitoring
+**How to Access:**
+- Full text (official EU source): https://eur-lex.europa.eu/eli/reg/2016/679/oj
+- Practical guide: EDPB (European Data Protection Board) www.edpb.eu
+- Belgium-specific guidance: https://www.autoriteprotectiondonnees.be/
 
-### OWASP (Open Web Application Security Project)
-- **OWASP Top 10 Network Security:** https://owasp.org/
-- **Network Segmentation:** https://cheatsheetseries.owasp.org/cheatsheets/Network_Segmentation_Cheat_Sheet.html
+**Audit Mapping:** See `applicability-note.md` (Section 2.2)
 
 ---
 
-## Packet Tracer Limitations
+### NIS2 Directive (Network & Information Security 2)
 
-Understanding simulator constraints is critical for production validation.
+- **Legal Instrument:** EU Directive 2022/2555
+- **Effective Date:** 12 October 2024 (compliance deadline: 12 Oct 2024)
+- **Scope:** Network & information security for critical operators (Essential & Important entities)
+- **Official Text:** https://eur-lex.europa.eu/eli/dir/2022/2555/oj
+- **Belgium Implementation:** Loi relative à la sécurité des réseaux et systèmes d'information (26 April 2024)
+  - Belgian text (Justel): https://www.justel.be/
 
-### Known Limitations in This Project
+**NIS2 Classification:**
+- NVIDIA Regional R&D Hub: **Annex II "Important Entity"** (not Essential)
+- Sector: Manufacturing & Research/Technology
+- Size: 48 workstations + infrastructure = triggers NIS2 for Important entities
 
-1. **ACL Enforcement**
-   - Partial ACL enforcement inconsistencies observed
-   - Interface ACL bindings may not display after project reopen
-   - Workaround: Verify ACL configuration with 'show access-lists' command
+**NIS2 Article 21(2) — Technical Measures (Key for This Audit):**
 
-2. **VLAN Hopping Simulation**
-   - Does not simulate actual 802.1Q double-tagging attacks
-   - Native VLAN hardening can be verified via configuration, not functional testing
-   - **Production Validation:** Use penetration tools (yersinia, VLANHoppers)
+| Article | Requirement | Audit Finding |
+|---|---|---|
+| **(b)** | Incident detection & response | F-GAP-01: CRITICAL (no logging) |
+| **(c)** | Business continuity & backup | F-GAP-07: MEDIUM (no backup design) |
+| **(d)** | Supply chain security | F-GAP-10: MEDIUM (no vendor audit rights) |
+| **(h)** | Cryptographic techniques | F-GAP-04: HIGH (SSH incomplete), F-GAP-06: HIGH (cleartext FTP) |
+| **(i)** | Access control & authentication | F-GAP-05: HIGH (RADIUS broken, weak credentials) |
 
-3. **RADIUS/AAA**
-   - Full AAA/RADIUS simulation is limited
-   - Local fallback can be tested; RADIUS can be partially validated
-   - **Production Validation:** Test against actual RADIUS server in staging
+**NIS2 Belgium Act (26 April 2024):**
+- Amends Belgian law on national security
+- Requires "appropriate" security measures (Article 21)
+- Monitoring authority: **Centre de Cybersécurité Belgique (CCB)**
+- Incident notification: **24 hours** (reduced from 72h in NIS1)
 
-4. **Spanning Tree Protocol (STP)**
-   - Basic STP operation simulated
-   - BPDU Guard and Root Guard can be configured but not fully tested
-   - Real-time STP recalculation may differ from physical switches
-   - **Production Validation:** Test STP failover with link failures
+**Contact:** CCB — https://www.cert.be/ (Belgian national cybersecurity center)
 
-5. **Port Security**
-   - Port security features not fully simulated
-   - Configuration accepted but enforcement inconsistent
-   - **Production Validation:** Configure and test MAC limiting in production
-
-6. **Dynamic ARP Inspection (DAI)**
-   - DAI is not supported in Packet Tracer
-   - **Production Requirement:** Implement DAI separately in production
-
-7. **Firewall (ASA) Limitations**
-   - Basic firewall functions simulated (interface, ACL, basic NAT)
-   - Advanced threat protection features limited (IPS, DPI, URL filtering)
-   - Control Plane Policing (CoPP) not fully supported
-   - **Production Requirement:** Implement advanced security features in production
-
-8. **SIEM/Real-time Monitoring**
-   - Syslog collection works, but no real-time SIEM simulation
-   - No automated alerting or response simulation
-   - **Production Requirement:** Deploy SIEM tool for real-time monitoring
-
-### Mitigation Strategy
-
-All findings in this audit account for Packet Tracer limitations:
-- **Configuration validation** = Verified in PKT (reliable)
-- **Functional testing** = Partial in PKT; full validation in production
-- **Security attack simulation** = Limited in PKT; requires penetration testing in production
-
-**Recommendation:** Treat Packet Tracer results as proof-of-configuration, not proof-of-security.
+**Audit Mapping:** See `applicability-note.md` (Section 2.3)
 
 ---
 
-## Cryptography & Security Protocols
+### CyberFundamentals (CyFun) — Belgium
 
-### SSH (Secure Shell)
-- **RFC 4251 - SSH Protocol Architecture:** https://tools.ietf.org/html/rfc4251
-- **SSH Version 2 Best Practices:** https://www.ietf.org/rfc/rfc4253.html
-- **Cisco SSH Configuration:** https://www.cisco.com/c/en/us/support/docs/security/ssh/
+- **Framework:** Belgian de facto implementation framework for NIS2
+- **Based On:** NIST Cybersecurity Framework 2.0 (updated 2024)
+- **Status:** Reference standard for NIS2 compliance verification in Belgium
+- **Official Source:** https://www.cyberfundamentals.be/
+- **Access:** Contact CCB or your national cybersecurity authority for detailed documentation
 
-### OSPF (Open Shortest Path First)
-- **RFC 2328 - OSPF Version 2:** https://tools.ietf.org/html/rfc2328
-- **OSPF Security:** https://tools.ietf.org/html/rfc7474
+**CyFun 2025 Functions (6 Categories):**
+1. **Govern (GV)** — Policies, roles, risk management
+2. **Protect (PR)** — Access control, encryption, asset management
+3. **Detect (DE)** — Monitoring, logging, incident detection
+4. **Respond (RS)** — Incident response, containment, eradication
+5. **Recover (RC)** — Recovery procedures, backup/restore, business continuity
+6. **Adapt (AD)** — Continuous improvement, lessons learned
 
-### VLANs & Spanning Tree
-- **IEEE 802.1Q - VLANs:** https://standards.ieee.org/standard/802_1Q-2022.html
-- **IEEE 802.1D - Spanning Tree Protocol:** https://standards.ieee.org/standard/802_1D-2004.html
+**This Audit's CyFun Mapping:**
+- Protect: VLAN segmentation, SSH, RADIUS (PR.AC, PR.DS)
+- Detect: Syslog logging (DE.AE)
+- Respond: Incident response procedure (RS.CO)
+- Recover: Backup design (RC.CO)
+- Govern: Asset inventory, policies (GV) — out of scope
 
-### RADIUS (Authentication)
-- **RFC 2865 - RADIUS Protocol:** https://tools.ietf.org/html/rfc2865
-- **RFC 2866 - RADIUS Accounting:** https://tools.ietf.org/html/rfc2866
-
-### Syslog
-- **RFC 5424 - The Syslog Protocol:** https://tools.ietf.org/html/rfc5424
-- **RFC 3164 - BSD syslog Protocol:** https://tools.ietf.org/html/rfc3164
-
----
-
-## How to Use This File
-
-### For Auditors
-- Use these links as **reference material** when reviewing findings
-- Do **NOT cite external links directly** in findings (use committed evidence instead)
-- Example: In findings, cite **PKT files or test reports** as primary evidence
-- Use standards references in compliance mapping section only
-
-### For Operations
-- Use vendor documentation when implementing production changes
-- Follow CIS Benchmarks for hardening production infrastructure
-- Implement features noted as "Production Requirement" in Packet Tracer Limitations section
-
-### For Compliance
-- Map findings to regulatory requirements using GDPR, NIS2, CyFun references
-- Use ISO 27001 control numbers for control assessment
-- Reference NIST CSF for risk management framework alignment
+**Audit Mapping:** See `applicability-note.md` (Section 2.4)
 
 ---
 
-## Questions or Updates?
+### EU AI Act (Mention Only — Out of Scope)
 
-If any links are broken or outdated:
-1. Check vendor websites directly (Cisco.com, ISO.org, etc.)
-2. Verify URLs are current with site search functionality
-3. Update this file with working URLs
-4. Commit changes with note: "refactor: update external reference links"
+- **Legal Instrument:** EU Regulation 2024/1689
+- **Effective Date:** 2 February 2025 (phased implementation)
+- **Scope:** Artificial Intelligence systems with "high risk"
+- **Official Text:** https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+- **Relevance to NVIDIA Hub:** Uncertain
+  - Hub mentions "Central-Compute-LLM" server (VLAN 70, 192.168.70.14)
+  - **No documentation of what "LLM" means or what it does**
+  - If it is a Large Language Model (Generative AI), AI Act may apply
+  - **Flagged as risk in applicability-note.md; requires separate assessment**
 
-**Last Updated:** September 2026
+**Recommendation:** Clarify LLM workload with NVIDIA. If Generative AI, conduct AI Act compliance audit separately.
 
+---
+
+### CRA (Cyber Resilience Act) — Not Applicable
+
+- **Legal Instrument:** EU Regulation 2024/2930 (EN: Cybersecurity Certification)
+- **Scope:** Manufacturers of ICT products
+- **Why Not Applicable:** NVIDIA hub is a buyer/user of network equipment, not a manufacturer
+- **Reference:** https://eur-lex.europa.eu/eli/reg/2024/2930/oj (for information)
+
+---
+
+### DORA (Digital Operational Resilience Act) — Not Applicable
+
+- **Legal Instrument:** EU Regulation 2023/2775
+- **Scope:** Financial services entities
+- **Why Not Applicable:** NVIDIA hub is not a bank, insurer, or investment firm
+- **Reference:** https://eur-lex.europa.eu/eli/reg/2023/2775/oj (for information)
+
+---
+
+## Technical Standards & References
+
+### Cisco Network Device Documentation
+
+- **Catalyst 3650 Switch:** https://www.cisco.com/c/en/us/products/switches/catalyst-3650-series/
+  - CLI Reference: Search "Catalyst 3650 Command Reference"
+  - SVI ACL configuration: https://www.cisco.com/c/en/us/support/switches/catalyst-3650-series/
+
+- **Cisco ASA Firewall:** https://www.cisco.com/c/en/us/products/security/asa-firepower-services/
+  - CLI Reference: https://www.cisco.com/c/en/us/support/security/asa-5500-x-series-next-generation-firewalls/
+
+- **Cisco ISR4331 Router:** https://www.cisco.com/c/en/us/products/routers/isr-4331/
+  - CLI Reference: Search "ISR4331 Command Reference"
+
+### OSPF & ECMP
+
+- **OSPF (Open Shortest Path First):**
+  - RFC 2328: https://tools.ietf.org/html/rfc2328
+  - Cisco OSPF overview: https://www.cisco.com/c/en/us/support/docs/ip/open-shortest-path-first-ospf/
+
+- **ECMP (Equal-Cost Multi-Path Routing):**
+  - NIST definition: https://csrc.nist.gov/glossary/term/ecmp
+  - Cisco load balancing: https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/
+
+### SSH & Cryptography
+
+- **SSH (Secure Shell) Protocol:**
+  - RFC 4251–4254: https://tools.ietf.org/html/rfc4251
+  - NIST SP 800-53 Rev. 5, AC-2 (Account Management): https://csrc.nist.gov/publications/detail/sp/800-53/rev-5
+
+- **RSA Key Sizing:**
+  - Recommendation: 2048-bit minimum (deprecated: 1024-bit)
+  - NIST guidance: https://csrc.nist.gov/publications/detail/sp/800-175b/final
+
+### VLAN & Network Segmentation
+
+- **IEEE 802.1Q (VLAN Tagging):**
+  - Official standard: https://www.ieee.org/
+  - Cisco VLAN overview: https://www.cisco.com/c/en/us/support/docs/lan-switching/vlan/
+
+- **802.1X (Port-Based Network Access Control):**
+  - IEEE 802.1X: https://www.ieee.org/
+  - Cisco 802.1X: https://www.cisco.com/c/en/us/support/docs/lan-switching/802-1x/
+
+### Logging & Syslog
+
+- **Syslog Protocol:**
+  - RFC 5424 (latest): https://tools.ietf.org/html/rfc5424
+  - RFC 3164 (legacy): https://tools.ietf.org/html/rfc3164
+
+- **Cisco Syslog:**
+  - Overview: https://www.cisco.com/c/en/us/support/docs/security/logging/
+
+### RADIUS Authentication
+
+- **RADIUS Protocol:**
+  - RFC 2865: https://tools.ietf.org/html/rfc2865
+  - Cisco RADIUS: https://www.cisco.com/c/en/us/support/docs/security/remote-access-dialin-user-service-radius/
+
+---
+
+## Packet Tracer Simulator
+
+- **Download:** https://www.netacad.com/
+  - Free educational version
+  - Requires Cisco Learning Network account
+  
+- **System Requirements:**
+  - Windows 10+, macOS, Linux
+  - ~1 GB RAM minimum
+  
+- **Known Limitations:** See `Packet-tracer-limitations.docx` for 10 documented gaps
+
+- **Forum/Support:**
+  - Cisco Learning Network: https://learningnetwork.cisco.com/
+
+---
+
+## NIST Cybersecurity Framework (Reference)
+
+- **NIST CSF 2.0 (February 2024):** https://csrc.nist.gov/publications/detail/cswp/02-23-01/final
+  - Functions: Govern, Protect, Detect, Respond, Recover (5 domains + Govern)
+  - CyFun 2025 is based on NIST CSF 2.0
+
+- **NIST SP 800-53 (Rev. 5):** https://csrc.nist.gov/publications/detail/sp/800-53/rev-5
+  - Detailed security controls (285 total)
+  - Basis for many ISO 27001 controls
+
+---
+
+## Belgium-Specific Resources
+
+### Cybersecurity Authority
+
+- **Centre de Cybersécurité Belgique (CCB):**
+  - Website: https://www.cert.be/
+  - Email: cert@bosa.fgov.be
+  - Incident Reporting: https://www.cert.be/nl/form/Rapport-un-incident
+
+### Legal Framework
+
+- **Belgian Federal Government Law Portal (Justel):**
+  - NIS2 Belgium Act (26 April 2024): https://www.justel.be/
+  - GDPR Belgium compliance: https://www.autoriteprotectiondonnees.be/ (ADPD/APD)
+
+### Data Protection Authority
+
+- **Autorité de Protection des Données (APD) / Gegevensbeschermingsautoriteit (GBA):**
+  - Website: https://www.autoriteprotectiondonnees.be/
+  - Multilingual (FR/NL)
+  - GDPR guidance: https://www.autoriteprotectiondonnees.be/ressources/documents
+
+---
+
+## Industry Best Practices
+
+### Network Security
+
+- **SANS Institute:**
+  - NMS Checklist: https://www.sans.org/
+  - Top 25 Software Errors: https://www.cwe.mitre.org/top25/
+
+- **MITRE ATT&CK Framework:**
+  - Enterprise Matrix: https://attack.mitre.org/
+  - Network-related tactics & techniques
+
+### Incident Response
+
+- **NIST SP 800-61 (Rev. 2) — Incident Handling Guide:**
+  - https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final
+
+### Secure Configuration
+
+- **CIS Benchmarks:**
+  - Cisco IOS: https://www.cisecurity.org/cis-benchmarks/
+  - Network device hardening baselines
+
+---
+
+## Insurance & Risk Management
+
+### Cyber Insurance
+
+- **AXA Belgium:** https://www.axa.be/
+  - Hardware & cyber risk policies
+
+- **Hiscox Europe:** https://www.hiscox.com/
+  - Professional liability & cyber risk
+
+### Risk Assessment Methodologies
+
+- **ISO 31000 (Risk Management):**
+  - https://www.iso.org/standard/65694
+  - Framework for defining Likelihood & Impact scales
+
+---
+
+## Audit Guidance
+
+### ISO 19011 — Auditing Standards
+
+- **Official Standard:** https://www.iso.org/standard/62806
+- **Scope:** Guidance for auditing management systems (including ISO 27001)
+- **Relevance:** This audit follows ISO 19011 principles (objectivity, evidence-based, independence)
+
+### ISACA Standards
+
+- **CISA (Certified Information Systems Auditor):** https://www.isaca.org/
+- **COBIT (Control Objectives for Information & Related Technology):** https://www.isaca.org/resources/cobit
+
+---
+
+## Document Standards
+
+### Markdown
+
+- **Markdown Syntax:** https://daringfireball.net/projects/markdown/
+- **CommonMark (Standard):** https://commonmark.org/
+- **GitHub Markdown:** https://guides.github.com/features/mastering-markdown/
+
+### Git & Version Control
+
+- **Git Official:** https://git-scm.com/
+- **GitHub:** https://github.com/
+- **GitLab:** https://gitlab.com/
+
+---
+
+## Notes on Dated References
+
+Some standards referenced in this audit may be updated after publication:
+
+- **ISO 27001:** Check https://www.iso.org/standard/27001 for latest version
+- **GDPR:** As of December 2023; monitor https://eur-lex.europa.eu/ for amendments
+- **NIS2:** Effective October 2024; Belgium Act (April 2024) details national implementation
+- **NIST CSF:** Latest version is 2.0 (February 2024); check https://csrc.nist.gov/
+
+**Always verify current versions before citing in official audit reports.**
+
+---
+
+**Framework Versions:** ISO 27001:2022, GDPR (current), NIS2 (2022), CyFun 2025, NIST CSF 2.0
