@@ -304,5 +304,8 @@ This audit was conducted by **Control Freaks**, a specialized GRC audit team com
 Together, Control Freaks delivered a comprehensive, evidence-based audit bridging technical reality and regulatory compliance.
 
 ---
+## 📌 License
+This repository is an Educational / Academic Cisco Packet Tracer Simulation Project. It is intended solely for instructional and portfolio demonstration purposes.
 
+---
 *"An audit is only as good as the team executing it. Control Freaks brought technical rigor, compliance expertise, and coordinated execution to deliver this assessment."*
