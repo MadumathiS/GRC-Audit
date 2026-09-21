@@ -2,250 +2,174 @@
 
 **Project:** NVIDIA Regional R&D and Production Hub  
 **Project ID:** NVIDIA-REG-RD-2026-1106  
-**Prepared By:**  
+**Audit type:** Pre-go-live network-design and documentation audit  
+**Status:** Draft — Under Review  
 
 ---
 
-## Organization Profile
+## 1. Purpose and Evidence Basis
+
+This note determines which regulations and recognised frameworks are relevant to the audit of the delivered network design. It is based on the NVIDIA RFQ, the assigned team's design dossier, the Packet Tracer submission and the instructor's clarification for the separate incident-notification exercise.
+
+An applicability decision does not establish compliance. Compliance results, findings and risk ratings must be recorded only after the audit checks have been performed against cited evidence.
+
+## 2. Organisation Profile
 
 | Field | Value |
-|-------|-------|
-| **Organization Type** | Technology/Manufacturing (NVIDIA Regional Hub) |
-| **Organization Size** | Large Enterprise (48 workstations + infrastructure) |
-| **Primary Sector(s)** | AI/ML Research, Production, Development |
-| **Location(s)** | Belgium (Brussels region) |
-| **Data Types** | Employee data, R&D IP, Production data, Financial records |
-| **Critical Functions** | AI research, LLM training, multimedia production, file transfer |
-| **Employees** | 48 workstations deployed |
+|---|---|
+| Organisation / Site | NVIDIA Regional R&D and Production Hub — educational project |
+| Project ID | NVIDIA-REG-RD-2026-1106 |
+| Activity | Research, development and production, as described in the RFQ |
+| Location | Belgium |
+| Network size | 48 workstations specified in the RFQ. Infrastructure devices are recorded separately in the asset inventory. |
+| Legal entity and size | The number of workstations does not establish the legal entity's employee count, turnover or balance-sheet total. See the scenario clarification below. |
+| Information in scope | R&D and production information, network configurations, authentication information and logs. Exact personal-data categories and storage locations require evidence. |
+| Audit scope | Review of the delivered network design and supporting documentation before go-live |
 
----
+### Scenario clarification
 
-## Regulations Assessment
+The instructor's correction to the incident-notification exercise describes a Belgian subsidiary wholly owned by the NVIDIA group, with 48 employees, EUR 7 million turnover and a parent group above the relevant size thresholds. Its stated activity is the manufacture of computer, electronic and optical products.
 
-### 1. GDPR (General Data Protection Regulation)
+Those facts are established for the incident exercise. Their use in the broader design audit remains subject to confirmation and must not be inferred from the number of workstations.
 
-| Criteria | Status | Analysis |
-|----------|--------|----------|
-| **Applies?** | ✅ **YES** | Belgium-based organization processing personal data |
-| **Data Types** | ✅ Employee data (names, addresses, national IDs, salaries) stored on AAA Server (192.168.70.12) |
-| **Scope** | ✅ Personal data of 48 employees + contractors in workstations, servers, and network logs |
-| **Key Obligations** | Data protection, access control, breach notification (72 hours), data retention limits, DPA requirements |
-| **Authority** | APD/GBA (Belgium Data Protection Authority) |
-| **Breach Notification Portal** | https://moncompte.autoriteprotectiondonnees.be |
-| **Evidence in Design** | Employee database stored on centralized AAA server; Syslog captures user activity |
-| **Risk Rating** | **HIGH** — Personal data in centralized location with partial monitoring |
+The HR export described in the incident exercise must not be treated as evidence that employee addresses, national register numbers or salary information are stored on the AAA server in the audited design.
 
-**Finding:** Employee data (national IDs, salaries) centralized on 192.168.70.12 with no documented backup/encryption requirements. Breach would trigger GDPR 72-hour notification to APD/GBA.
+## 3. Applicability Summary
 
----
+| Regulation or framework | Assessment | Basis / outstanding information |
+|---|---|---|
+| GDPR | **Applies** to the intended personal-data processing | Operational accounts and logs are expected to relate to identifiable individuals. Confirm the actual data categories, purposes, retention periods and storage locations. |
+| Belgian NIS2 Law | **Uncertain for the design audit**; **Applies — Important entity** in the corrected incident scenario | Confirm whether the stated manufacturing activity, group ownership and consolidated size facts also apply to the audited legal entity. |
+| ISO/IEC 27001:2022 | **Used as audit criteria** | The project requires selected Annex A controls. No certification status has been established. |
+| CyberFundamentals 2025 | **Used as an audit framework** | Record each selected control precisely. The applicable assurance level requires a documented justification. |
+| Cyber Resilience Act | **Uncertain** | Confirm the products placed on the EU market and the audited entity's role as manufacturer, importer or distributor. Product conformity is outside this network audit. |
+| DORA | **Does not apply to the described activities**, based on available evidence | The dossier does not establish that the entity is a financial entity or a designated critical ICT third-party provider. |
+| EU AI Act | **Uncertain** | Identify the actual AI systems or models, intended purposes and the entity's role before determining obligations or risk classification. |
 
-### 2. NIS2 (Network and Information Security Directive 2)
+## 4. GDPR — General Data Protection Regulation
 
-| Criteria | Status | Analysis |
-|----------|--------|----------|
-| **Applies?** | ✅ **YES** | Critical R&D infrastructure for NVIDIA |
-| **Entity Type** | ✅ **Essential** (Critical sector organization) |
-| **Sector** | Research & Development (Critical Information Infrastructure) |
-| **Size Threshold** | ✅ Exceeds 250 employees; meets "essential" criteria |
-| **Key Obligations** | Risk management, incident response, supply chain security, breach notification (24h/72h/1mo) |
-| **Authority** | CCB (Centre for Cybersecurity Belgium) |
-| **Incident Reporting Portal** | https://notif.safeonweb.be |
-| **Evidence in Design** | Multi-layer security (VLAN, ACLs, firewall), centralized logging, DMZ design |
-| **Risk Rating** | **CRITICAL** — R&D infrastructure requires 24-hour incident notification |
+**Assessment: Applies to the hub's intended personal-data processing.**
 
-**Timelines:**
-- **24 hours:** Early warning to CCB
-- **72 hours:** Full incident notification to CCB
-- **1 month:** Final report to CCB
+The hub is located in Belgium. GDPR applies to personal-data processing in the context of an EU establishment's activities. For this design audit, operational user accounts and activity logs are expected to be linked to identifiable individuals; the simulator's test accounts alone do not prove actual personal-data processing.
 
-**Finding:** Syslog monitoring partially implemented (Leaf-1 only); access switches not logging. This creates blind spots for incident detection and reporting.
+The dossier describes AAA authentication and logging services. User identifiers and logs may be personal data when they relate to identifiable individuals. The exact categories, purposes, retention periods and storage locations require confirmation.
 
----
+There is no established evidence that the AAA server stores employee addresses, national register numbers or salary information. The HR export on the FTP server belongs to the separate incident exercise.
 
-### 3. ISO/IEC 27001:2022 (Information Security Management)
+Relevant requirements include:
 
-| Criteria | Status | Analysis |
-|----------|--------|----------|
-| **Applies?** | ✅ **YES** | Reference framework for audit |
-| **Type** | ✅ **Reference Framework** (not certification requirement) |
-| **Scope** | All network infrastructure, servers, workstations |
-| **Controls Assessed** | 14 Annex A controls across 4 themes |
-| **Themes** | Organizational, People, Physical, Technological |
-| **Audit Standard** | ISO/IEC 27001:2022 |
-| **Evidence in Design** | ACLs (A.8.2), SSH access (A.9.4), VLAN segmentation (A.8.1), logging (A.12.4) |
-| **Risk Rating** | **HIGH** — Several controls only partially implemented |
+- Article 5: data minimisation, storage limitation, integrity and confidentiality.
+- Article 30: records of processing activities where its conditions apply.
+- Article 32: security measures appropriate to the risk.
+- Article 33: notification of qualifying personal-data breaches without undue delay and, where feasible, within 72 hours of awareness.
+- Article 34: communication to affected individuals without undue delay where the breach is likely to result in a high risk, subject to the Article's exceptions.
 
-**14 Primary Controls Being Assessed:**
-1. A.5.1 — Policies for information security
-2. A.6.1 — Organization of information security
-3. A.8.1 — Access control
-4. A.8.2 — User access management
-5. A.8.3 — Access control to cryptography
-6. A.8.6 — Access control for change management
-7. A.9.1 — Network security perimeter (firewall, DMZ)
-8. A.9.2 — Network segmentation (VLANs)
-9. A.9.4 — Access control for remote work (SSH)
-10. A.10.1 — Cryptography policy
-11. A.12.4 — Logging and monitoring
-12. A.12.6 — Management of technical vulnerabilities
-13. A.13.1 — Information transfer policies
-14. A.14.2 — System acceptance criteria
+This is not a complete GDPR assessment. A Data Protection Impact Assessment or data processing agreement must not be declared mandatory without first assessing the processing activities and organisational roles.
 
-**Finding:** Controls A.12.4 (logging) and A.12.6 (vulnerability management) only partially implemented.
+**Source:** [Regulation (EU) 2016/679](https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng)
 
----
+## 5. NIS2 — Belgian NIS2 Law
 
-### 4. CyFun (Belgian Cybersecurity Framework)
+**Assessment: Applies as an Important entity in the corrected incident scenario. Applicability to the design audit remains conditional on confirmation of the same organisational facts.**
 
-| Criteria | Status | Analysis |
-|----------|--------|----------|
-| **Applies?** | ✅ **YES** | Belgium-specific requirement |
-| **Level Required** | ✅ **Important** (R&D hub with data) |
-| **Linked To** | NIS2 + ISO 27001 |
-| **Framework Domains** | Governance, Data Protection, Access Control, Network Security, Incident Response |
-| **Authority** | CCB (Centre for Cybersecurity Belgium) |
-| **Evidence in Design** | ACL-based access control, VLAN segmentation, centralized logging, firewall |
-| **Risk Rating** | **MEDIUM-HIGH** — Framework requirements mostly met with gaps |
+The corrected incident scenario describes a Belgian subsidiary wholly owned by NVIDIA, with 48 employees, EUR 7 million turnover and a group above the relevant size thresholds. Its manufacturing activity falls within Annex II, point 5(b), covering the manufacture of computer, electronic and optical products.
 
-**CyFun Domains Assessed:**
-- **Governance:** Audit team, defined roles ✅
-- **Data Protection:** Centralized servers, encrypted management (SSH) ✅
-- **Access Control:** VLAN isolation, ACLs ✅ (with gaps)
-- **Network Security:** Firewall, DMZ, segmentation ✅
-- **Incident Response:** Syslog monitoring ⚠️ (partial)
-- **Supply Chain:** Not assessed (out of scope)
+The size assessment considers linked-enterprise data under Recommendation 2003/361/EC rather than the subsidiary's staff and turnover alone. On the corrected scenario's facts, the entity is classified as Important. No separate basis for Essential classification has been established.
 
-**Finding:** CyFun "Important" level mostly implemented; monitoring gaps present.
+Relevant obligations include cybersecurity risk-management measures and significant-incident reporting. For a qualifying significant incident, the reporting stages are:
 
----
+- Early warning: within 24 hours of awareness.
+- Incident notification: within 72 hours of awareness.
+- Final report: no later than one month after submission of the incident notification. If the incident remains ongoing, a progress report is submitted and the final report follows within one month after the incident has been handled.
 
-### 5. Cyber Resilience Act (CRA)
+The Belgian authority is the Centre for Cybersecurity Belgium (CCB), with operational incident handling through CERT.be.
 
-| Criteria | Status | Analysis |
-|----------|--------|----------|
-| **Applies?** | ❌ **NO** | |
-| **Reason** | NVIDIA designs/uses equipment but does not manufacture products for EU market |
-| **Scope** | Does not apply to network infrastructure; applies to manufactured products |
+The RFQ's 48 workstations do not establish the entity's legal size. Until the exercise's organisational facts are confirmed for the design audit, NIS2 must remain marked **Uncertain** in that audit context.
 
----
+**Sources:** [Directive (EU) 2022/2555](https://eur-lex.europa.eu/eli/dir/2022/2555/oj/eng) · [Belgian NIS2 information — CCB](https://ccb.belgium.be/en/nis2)
 
-### 6. DORA (Digital Operational Resilience Act)
+## 6. ISO/IEC 27001:2022
 
-| Criteria | Status | Analysis |
-|----------|--------|----------|
-| **Applies?** | ❌ **NO** | |
-| **Reason** | Not a financial institution; NVIDIA Regional Hub is R&D/manufacturing |
-| **Note** | Would apply if this were a bank or financial services entity |
+**Assessment: Used as audit criteria, as required by the project instructions.**
 
----
+ISO/IEC 27001:2022 is an international standard for an information security management system; it is not a law. Selected Annex A controls provide criteria for assessing the delivered network design. Each selected control must be linked to a check, a defined pass condition and supporting evidence.
 
-### 7. AI Act
+No evidence establishing a valid ISO/IEC 27001 certificate covering this hub has been identified. Certification status is therefore not verified. This project is a limited design audit, not a certification audit or a complete assessment of the organisation's ISMS. Passing selected network checks does not demonstrate full conformity with ISO/IEC 27001.
 
-| Criteria | Status | Analysis |
-|----------|--------|----------|
-| **Applies?** | ❓ **UNCERTAIN** | |
-| **Uses AI Systems?** | ✅ **YES** — Compute Server (192.168.70.21) for "AI/ML workload simulation" |
-| **Risk Classification** | ✅ **High Risk** (AI for research/training) |
-| **Requires:** | Transparency, human oversight, risk assessment |
-| **Assessment** | Beyond scope of network audit; flagged for separate AI governance review |
-| **Recommendation** | Conduct separate AI governance assessment |
+**Source:** [ISO/IEC 27001:2022](https://www.iso.org/standard/27001)
 
-**Finding:** Network audit notes AI compute server but AI governance assessment required separately. Recommend reviewing AI Act compliance as Phase 2 work.
+## 7. CyberFundamentals 2025
 
----
+**Assessment: Used as an audit framework, as required by the project instructions.**
 
-## Summary Table
+CyberFundamentals is a cybersecurity framework developed by the Centre for Cybersecurity Belgium. Selected measures help translate cybersecurity objectives into checks and evidence requirements.
 
-| Regulation | Applies | Level/Type | Key Obligations | Authority | Status |
-|-----------|---------|-----------|-----------------|-----------|--------|
-| **GDPR** | ✅ YES | Critical | 72h breach notification, data protection, DPA | APD/GBA | Must Comply |
-| **NIS2** | ✅ YES | Essential | 24h/72h/1mo incident notification, risk mgmt | CCB | Must Comply |
-| **ISO 27001** | ✅ YES | Reference | 14 controls assessed | International | Reference |
-| **CyFun** | ✅ YES | Important | Domain-based framework | CCB | Must Comply |
-| **CRA** | ❌ NO | N/A | Product manufacturing | EU | Not Applicable |
-| **DORA** | ❌ NO | N/A | Financial services | EU | Not Applicable |
-| **AI Act** | ❓ UNCERTAIN | High Risk | Separate assessment | EU | Flag for Review |
+This audit uses **CyberFundamentals 2025, version 2025-10-01**. Each checklist reference must identify the individual measure rather than cite only a broad category such as `PR.AC`.
 
----
+For example, the centralised-authentication check is mapped to:
 
-## Compliance Obligations Summary
+- `PR.AA-01.1`: identities and credentials for authorised users, services and hardware are managed.
+- `PR.AA-01.2`: identities and credentials are managed through automated mechanisms whenever feasible.
 
-### GDPR Obligations
-- ✅ Personal data inventory (employee data identified)
-- ⚠️ Data Protection Impact Assessment (required)
-- ⚠️ Data Processing Agreement with NVIDIA (required)
-- ⚠️ 72-hour breach notification to APD/GBA (capability needed)
-- ⚠️ Data subject rights procedures (required)
+The initial draft selected the CyFun Important assurance level without documenting the rationale. NIS2 entity classification and CyFun assurance level must be recorded separately; sharing the word “Important” does not itself justify the CyFun level.
 
-**GDPR Contacts:**
-- APD/GBA Portal: https://moncompte.autoriteprotectiondonnees.be
-- Email: contact@autoriteprotectiondonnees.be
+This limited design audit does not establish full CyFun conformity or certification. The existence of a firewall, VLANs or a Syslog server does not by itself demonstrate that the relevant measures are operating effectively.
 
-### NIS2 Obligations
-- ✅ Risk management program (partially implemented)
-- ✅ Incident response procedures (partially documented)
-- ⚠️ 24-hour early warning system (CCB)
-- ⚠️ 72-hour full incident notification (CCB)
-- ⚠️ 1-month final incident report (CCB)
-- ⚠️ Supply chain security assessment (required)
-- ⚠️ Third-party risk assessment (required)
+**Source:** [CyberFundamentals Framework — CCB](https://atwork.safeonweb.be/en/tools-resources/cyberfundamentals-framework)
 
-**NIS2 Contacts:**
-- CCB Incident Portal: https://notif.safeonweb.be
-- CCB Website: https://ccb.belgium.be/en
+## 8. Cyber Resilience Act
 
-### ISO 27001 Obligations
-- ✅ 14 primary controls documented and assessed
-- ⚠️ Annual control review and update
-- ⚠️ Control effectiveness testing
-- ⚠️ Evidence retention (3+ years recommended)
+**Assessment: Uncertain for the audited legal entity. Product conformity assessment is outside this network-design audit.**
 
-### CyFun Obligations
-- ✅ Framework domains assessed
-- ⚠️ "Important" level controls must be implemented
-- ⚠️ Annual review and update
-- ⚠️ Documentation of control implementations
+The Cyber Resilience Act establishes cybersecurity requirements for products with digital elements made available on the EU market, subject to its scope and exclusions.
 
----
+The available dossier does not establish which products the audited entity places on the EU market or whether it acts as manufacturer, importer or distributor. Therefore, the initial draft's conclusion that the CRA does not apply is unsupported.
 
-## Identified Gaps
+The internal network audit does not assess the conformity of products manufactured or sold by the organisation. Excluding product conformity from this audit does not establish that the CRA is inapplicable to the organisation.
 
-| Regulation | Gap | Priority | Owner |
-|-----------|-----|----------|-------|
-| GDPR | Data Protection Impact Assessment not documented | **Critical** | Security Team |
-| NIS2 | 24-hour incident notification process not documented | **Critical** | Security Team |
-| ISO 27001 A.12.4 | Logging incomplete (access switches not monitored) | **High** | Network Team |
-| ISO 27001 A.12.6 | Vulnerability management process not documented | **High** | Security Team |
-| CyFun | Incident response testing not documented | **Medium** | Security Team |
-| AI Act | Separate AI governance assessment not completed | **Medium** | Security Team |
+CRA reporting obligations apply from 11 September 2026, while the Regulation's main obligations apply from 11 December 2027. Any assessment must consider the relevant obligation and date.
 
----
+**Source:** [European Commission — Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act)
 
-## Recommendations
+## 9. DORA — Digital Operational Resilience Act
 
-### Phase 1 (Immediate - Next 30 Days)
-1. ✅ Complete Data Protection Impact Assessment (GDPR)
-2. ✅ Document NIS2 incident notification procedures
-3. ✅ Integrate access switch logging into centralized Syslog
-4. ✅ Document vulnerability management process
+**Assessment: Does not apply to the hub's described activities, based on the available evidence.**
 
-### Phase 2 (Next 90 Days)
-1. ✅ Conduct AI Act governance assessment
-2. ✅ Perform incident response testing
-3. ✅ Complete supply chain security assessment
-4. ✅ Test 72-hour breach notification procedures
+DORA governs digital operational resilience in the financial sector. The dossier describes an R&D and production hub and provides no evidence that the audited entity belongs to a financial-entity category listed in Article 2.
 
-### Phase 3 (Strategic - 6-12 Months)
-1. ✅ Pursue ISO 27001 certification (if required by NVIDIA)
-2. ✅ Implement CyFun "Essential" level controls (if business grows)
-3. ✅ Establish annual regulatory review process
+DORA also regulates certain ICT third-party relationships. Financial-sector customers may impose contractual security requirements, while designated critical ICT third-party providers are subject to a specific oversight framework. The dossier provides no evidence of a relevant designation or contract establishing those obligations for the audited entity.
 
----
+**Source:** [Regulation (EU) 2022/2554](https://eur-lex.europa.eu/eli/reg/2022/2554/oj/eng)
 
-## Conclusion
+## 10. EU AI Act
 
-The NVIDIA Regional R&D Hub network is subject to **4 primary regulations** (GDPR, NIS2, ISO 27001, CyFun) and operates in a **high-compliance environment**. The network design demonstrates good foundational security; however, **monitoring and documentation gaps** create compliance risks for GDPR and NIS2 breach notifications.
+**Assessment: Uncertain — insufficient information about the AI systems, models and activities involved.**
 
-**Audit Scope:** This GRC audit assesses compliance with GDPR, NIS2, ISO 27001, and CyFun using the network design documents and security configuration as the evidence baseline.
+The dossier mentions computing infrastructure intended for AI/ML workloads. This does not establish the systems or models involved, their intended purposes or the audited entity's legal role. AI research or training is not automatically classified as high-risk.
 
----
+To determine applicability, the organisation must identify:
+
+- The AI systems or models and their intended purposes.
+- Whether the entity acts as a provider, deployer or another regulated operator.
+- Whether any exclusions, including relevant research exclusions, apply.
+- The applicable obligations and application dates.
+
+This network-design audit does not assess AI product conformity or the organisation's overall compliance with the EU AI Act.
+
+**Source:** [Regulation (EU) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng)
+
+## 11. Conclusion and Limitations
+
+This note establishes the regulatory and framework basis for the audit; it does not demonstrate compliance.
+
+GDPR is relevant to the hub's intended personal-data processing. NIS2 applicability to the design audit remains conditional on confirmation of the organisational facts supplied for the separate incident exercise. ISO/IEC 27001:2022 and CyberFundamentals 2025 provide audit criteria and are not presented as additional laws or evidence of certification.
+
+Unresolved applicability decisions must be updated if supporting evidence becomes available. Confirmed legal requirements and selected framework measures must be linked to the audit checklist. Findings and risk ratings must be recorded separately after the checks have been performed.
+
+### Key limitations
+
+- This is a documentation and Packet Tracer design audit; no production systems were tested.
+- Legal-entity identity, consolidated size and group structure were not established by the RFQ.
+- Exact personal-data categories, purposes, storage locations and retention periods require confirmation.
+- ISO/IEC 27001 certification and full CyFun conformity were not verified.
+- Product-level CRA and AI Act conformity are outside the network-design audit.
