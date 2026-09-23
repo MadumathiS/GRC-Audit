@@ -49,6 +49,7 @@
 | **9** | Single points of failure at Internet edge (1 router, 1 firewall) | HA-02 | High Availability | 1 | 3 | **3** | **MEDIUM** | Network | Plan dual edge router + firewall failover (future) | 6 months (post-launch) | Accepted |
 | **10** | Vendor security not addressed in contract | SC-01 | Supply Chain | 2 | 2 | **4** | **MEDIUM** | Procurement | Add security criteria, audit rights, 24h incident SLA to contract | Before contract signature | Not started |
 | **11** | Dossier internally inconsistent (contradicting claims, wrong IPs, unclear requirements) | (All) | Quality | 2 | 2 | **4** | **MEDIUM** | Contractor | Validate dossier against actual .pkt config before signing | Before acceptance | Not started |
+| **12** | Internet-facing FTP service uses cleartext transfer and a default-style account (`cisco`/`cisco`, delete/rename rights) — see `findings/F-GAP-12-FTP-Cleartext-Default-Credentials.md` | (Additional finding) | Data Protection | 3 | 2 | **6** | **HIGH** | Network/Security | Migrate DMZ-FTP to SFTP; remove `cisco` account; restrict ASA ACL to the secure port only | Before go-live | Not started |
 
 ---
 
@@ -85,11 +86,13 @@
 
 | Rating | Count | % of Total | Timeline |
 |--------|-------|-----------|----------|
-| **CRITICAL (9)** | 1 | 9% | ⚠️ Block production if unresolved |
-| **HIGH (6)** | 4 | 36% | ⚠️ Must resolve within 30 days |
-| **MEDIUM (4)** | 5 | 45% | ✓ Resolve within 90 days |
-| **LOW (≤3)** | 1 | 9% | ✓ Accept/defer; plan fix |
-| **TOTAL** | **11** | **100%** | |
+| **CRITICAL (9)** | 1 | 8% | ⚠️ Block production if unresolved |
+| **HIGH (6)** | 5 | 42% | ⚠️ Must resolve within 30 days |
+| **MEDIUM (4)** | 5 | 42% | ✓ Resolve within 90 days |
+| **LOW (≤3)** | 1 | 8% | ✓ Accept/defer; plan fix |
+| **TOTAL** | **12** | **100%** | |
+
+*(Updated to include F-GAP-12, added as a supplementary finding — see `findings/F-GAP-12-FTP-Cleartext-Default-Credentials.md`.)*
 
 ---
 
@@ -121,6 +124,7 @@
 ✅ **F-GAP-03 (HIGH):** Three-interface firewall OR alternate architecture deployed and tested.  
 ✅ **F-GAP-04 (HIGH):** SSH on all 8 Layer 3 devices; Telnet disabled.  
 ✅ **F-GAP-05 (HIGH):** RADIUS server operational; local credentials upgraded (12+ chars, unique).  
+✅ **F-GAP-12 (HIGH):** DMZ-FTP migrated to SFTP; `cisco` account removed; ASA ACL restricted to the secure port only.  
 
 **Can defer post-deployment (within 30–90 days):**  
 - ✓ F-GAP-06 (log retention policy)  

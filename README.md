@@ -22,14 +22,14 @@
 
 ## Executive Summary
 
-This repository contains a **corrected Governance, Risk, and Compliance (GRC) audit** of NVIDIA's Regional R&D Hub network infrastructure. The audit identified **11 findings across 15 security controls**, with **1 CRITICAL and 4 HIGH-risk gaps** that require remediation before production deployment.
+This repository contains a **corrected Governance, Risk, and Compliance (GRC) audit** of NVIDIA's Regional R&D Hub network infrastructure. The audit identified **12 findings** — 11 from the 15-control checklist plus 1 supplementary finding raised during evidence review — with **1 CRITICAL and 5 HIGH-risk gaps** that require remediation before production deployment. See `deliverables/Final-Audit-Report.md` for the consolidated report.
 
 ### Key Findings Summary
 
 | Priority | Count | Status | Timeline |
 |----------|-------|--------|----------|
 | **CRITICAL** | 1 | Centralized logging incomplete | Must fix before go-live |
-| **HIGH** | 4 | ACLs/DMZ/SSH/RADIUS weak | Fix within 30 days |
+| **HIGH** | 5 | ACLs/DMZ/SSH/RADIUS/FTP weak | Fix within 30 days |
 | **MEDIUM** | 5 | Retention/backup/IR/vendor | Fix within 90 days |
 | **LOW** | 1 | Dossier inconsistency | Accept/defer |
 
@@ -49,15 +49,21 @@ GRC-Audit/
 ├── .gitignore
 │
 ├── deliverables/
+│   ├── Final-Audit-Report.md
+│   │   └── Consolidated final report: scope, applicability, all 12 findings, top priorities, go-live gate (start here for the full picture)
+│   │
 │   ├── findings/
 │   │   ├── F-01-Critical-Findings.md
 │   │   │   └── 5 critical & high-risk findings with recommendations
+│   │   │
+│   │   ├── F-GAP-12-FTP-Cleartext-Default-Credentials.md
+│   │   │   └── Supplementary finding: Internet-facing FTP, cleartext + default-style credentials
 │   │   │
 │   │   ├── checklist.md
 │   │   │   └── 15 controls assessment (Pass/Partial/Fail)
 │   │   │
 │   │   └── risk-register.md
-│   │       └── All 11 findings with scores, owners, timeline
+│   │       └── All 12 findings with scores, owners, timeline
 │
 ├── evidence/
 │   ├── design-document/
@@ -84,8 +90,9 @@ GRC-Audit/
 
 ### For Project Managers
 1. Read this README (5 min)
-2. Review: `deliverables/findings/risk-register.md` — All findings, scores, timeline
-3. Plan: Resource the 5 remediation tracks; assign owners
+2. Read: `deliverables/Final-Audit-Report.md` — the consolidated final report (scope, applicability, all 12 findings, priorities, go-live gate)
+3. Review: `deliverables/findings/risk-register.md` — All findings, scores, timeline
+4. Plan: Resource the remediation tracks; assign owners
 
 ### For Technical Teams
 1. Review: `deliverables/findings/F-01-Critical-Findings.md` — Each finding has:
@@ -115,7 +122,7 @@ GRC-Audit/
 ### Coverage
 - **Frameworks:** 4 (ISO 27001:2022, GDPR, NIS2, CyFun)
 - **Controls:** 15 (across 5 areas)
-- **Findings:** 11 (1 CRITICAL, 4 HIGH, 5 MEDIUM, 1 LOW)
+- **Findings:** 12 (1 CRITICAL, 5 HIGH, 5 MEDIUM, 1 LOW)
 - **Network Devices:** 12 (Spines, Leaves, routers, firewall)
 - **Total Assets:** 82 (devices, servers, workstations)
 
