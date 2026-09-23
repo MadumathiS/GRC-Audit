@@ -2,72 +2,67 @@
 
 **Project:** NVIDIA Regional R&D and Production Hub  
 **Project ID:** NVIDIA-REG-RD-2026-1106  
-**Scale:** Likelihood (1-3) × Impact (1-3) = Risk Score; Rating (1-2=LOW, 3-4=MEDIUM, 6=HIGH, 9=CRITICAL)
+**Team:** [Control Freaks]  
+**Date:** 21 September 2026  
+**Status:** Draft — Technical validation pending
 
 ---
 
 ## AREA 1: NETWORK SEGMENTATION (3 checks)
 
-| ID | Control | Framework | Question | Evidence | Pass Condition | Result | Finding? |
-|----|---------|-----------|----------|----------|---|---|---|
-| **NS-01** | VLAN Isolation | ISO 27001 A.8.22 | Are workstations in different departments separated by different VLANs? | VLAN Worksheet (9 VLANs defined), Network Impl. Report §3 | 9 VLANs configured, one per dept/function | ✅ **PASS** | No |
-| **NS-02** | ACL Enforcement | ISO 27001 A.8.20 | Do ACLs on Layer 3 switches prevent inter-department traffic? | Security Config §1.4 ("not set"), §3.3 ("PT Enforced: No"), Limitations §1–2 | ACLs actively restrict cross-dept traffic | ❌ **FAIL** | **F-GAP-02** |
-| **NS-03** | DMZ Isolation | NIS2 Art. 21 | Is the DMZ isolated from internal networks via firewall rules? | Security Config §3.3, §10; Limitations §3 | DMZ ACL enforces, firewall blocks internal→DMZ | ❌ **PARTIAL** | **F-GAP-03** |
+This checklist contains 15 checks across five audit areas. Each check is linked to an applicable regulatory requirement and to a recognised control framework. Results must be based on cited evidence from the RFQ, the delivered design documents and the Packet Tracer configuration.
+
+**Allowed results:** `Pass` · `Fail` · `Not verifiable / Insufficient evidence`
 
 ---
 
-## AREA 2: ACCESS CONTROL (3 checks)
+## Area 1 — Network segmentation
 
-| ID | Control | Framework | Question | Evidence | Pass Condition | Result | Finding? |
-|----|---------|-----------|----------|----------|---|---|---|
-| **AC-01** | Encrypted Management | ISO 27001 A.8.5 | Is all management access (switch, router) encrypted (SSH)? | Device Config §1-6, SSH shown only on Leaf-1, Leaf-2, Edge Router | SSH on all Layer 3 devices (8 total); Telnet disabled | ❌ **PARTIAL** | **F-GAP-04** |
-| **AC-02** | Authentication Framework | ISO 27001 A.8.5, NIS2 21(2)(i) | Is centralized authentication (AAA/RADIUS) configured and working? | Security Config §7.4 ("RADIUS does not function"), Limitations §4 (command rejected) | RADIUS authenticates users; local fallback operational | ❌ **FAIL** | **F-GAP-05** |
-| **AC-03** | Guest Network Restriction | ISO 27001 A.8.22 | Are guest users isolated from internal networks? | GUEST-ACL tested in Security Config §2.2 | Guest VLAN isolated; ACLs block internal access | ✅ **PASS** | No |
-
----
-
-## AREA 3: LOGGING & MONITORING (3 checks)
-
-| ID | Control | Framework | Question | Evidence | Pass Condition | Result | Finding? |
-|----|---------|-----------|----------|----------|---|---|---|
-| **LM-01** | Centralized Logging | ISO 27001 A.8.15, NIS2 21(2)(b) | Are logs from network devices sent to central location? | Security Config §2.2 ("only Leaf-1"), Limitations §6 (switches rejected) | All Layer 3 devices forward logs to Syslog server | ❌ **FAIL** | **F-GAP-01** |
-| **LM-02** | Firewall Logging | ISO 27001 A.8.16, NIS2 21(2)(b) | Does the firewall log inbound/outbound traffic and forward to Syslog? | Security Config §3.2, Limitations §7 (ASA logging rejected) | Firewall logs configured and forwarded | ❌ **FAIL** | **F-GAP-01** |
-| **LM-03** | Log Retention Policy | GDPR Art. 32, NIS2 21(2)(c) | Is there a documented log retention policy (minimum 90 days)? | No retention period in any document | Policy documented (e.g., 90+ days) | ❌ **FAIL** | **F-GAP-06** |
+| ID | Requirement | Control reference | Yes/No question | Evidence source | Pass condition | Result | Evidence citation / notes |
+|---|---|---|---|---|---|---|---|
+| **NS-01** | NIS2 Article 21(2)(i): access control and asset management | ISO/IEC 27001:2022 A.8.22 — Segregation of networks | Are departments and security zones separated into VLANs according to their functions and risk levels? | RFQ; VLAN/subnet worksheet; network diagram; Packet Tracer | Passes if the required departments and security zones are assigned to separate VLANs and the VLAN IDs, subnets and gateways are consistent across the documentation and Packet Tracer. |  |  |
+| **NS-02** | NIS2 Article 21(2)(i): access control | ISO/IEC 27001:2022 A.8.20 — Network security; A.8.22 — Segregation of networks | Do ACLs or equivalent controls restrict traffic between departmental VLANs to authorised flows only? | Security configuration; access-control matrix; Layer 3 device configurations; Packet Tracer tests | Passes if documented ACLs are applied to the correct interfaces or VLANs, permit only required flows and deny unauthorised inter-VLAN traffic, with successful positive and negative tests. |  |  |
+| **NS-03** | NIS2 Article 21(2)(i): access control | ISO/IEC 27001:2022 A.8.20 — Network security; A.8.22 — Segregation of networks | Is the DMZ separated from internal networks by restrictive firewall rules? | Network diagram; firewall configuration; security configuration; Packet Tracer tests | Passes if the DMZ uses a separate subnet or VLAN and firewall rules allow only documented services, sources and destinations while blocking unauthorised DMZ-to-internal traffic. |  |  |
 
 ---
 
-## AREA 4: DATA PROTECTION (3 checks)
+## Area 2 — Access control
 
-| ID | Control | Framework | Question | Evidence | Pass Condition | Result | Finding? |
-|----|---------|-----------|----------|----------|---|---|---|
-| **DP-01** | Personal Data Inventory | GDPR Art. 30, ISO 27001 A.5.9 | Is personal data storage documented? | No data classification or inventory in dossier | Server VLAN identified; data types listed | ❌ **FAIL** | **F-GAP-07** |
-| **DP-02** | Backup & Recovery | GDPR Art. 32, ISO 27001 A.8.13 | Are critical servers backed up and restore tested? | Testing Report: "backup not simulated"; iSCSI = "Bonus" | iSCSI or backup solution with restore test | ❌ **FAIL** | **F-GAP-07** |
-| **DP-03** | Incident Response | GDPR Art. 33, NIS2 Art. 21(2)(b) | Is incident response procedure documented (24h/72h notification)? | Contract §6 ("Mon-Fri 08-18 only"); no 24/7 IR plan | Procedure for 24h notification, breach investigation | ❌ **FAIL** | **F-GAP-08** |
-
----
-
-## AREA 5: HIGH AVAILABILITY & SUPPLY CHAIN (3 checks)
-
-| ID | Control | Framework | Question | Evidence | Pass Condition | Result | Finding? |
-|----|---------|-----------|----------|----------|---|---|---|
-| **HA-01** | Redundancy | ISO 27001 A.8.14 | Is there redundancy in the routing layer (dual spines, ECMP)? | Device Config §1-2, Network Impl. Report §4.1.2 | Dual spine switches with OSPF/ECMP | ✅ **PASS** | No |
-| **HA-02** | Internet Gateway Redundancy | ISO 27001 A.8.14, NIS2 21(2)(c) | Is there failover for Internet access? | Device Config §7-8 (single router, single ASA) | Dual edge routers or documented failover | ❌ **FAIL** | **F-GAP-09** |
-| **SC-01** | Vendor Security | ISO 27001 A.5.19, NIS2 21(2)(d) | Are vendor security requirements in contract? | Contract §2-6 (no security criteria, audit rights, timeline); Cost Breakdown (refurbished hardware option) | Security clauses, audit rights, incident SLA | ❌ **FAIL** | **F-GAP-10** |
+| ID | Requirement | Control reference | Yes/No question | Evidence source | Pass condition | Result | Evidence citation / notes |
+|---|---|---|---|---|---|---|---|
+| **AC-01** | NIS2 Article 21(2)(h): policies and procedures regarding cryptography | ISO/IEC 27001:2022 A.8.20 — Network security; A.8.24 — Use of cryptography | Is administrative access to routers, switches and the firewall protected by encrypted protocols? | Device configurations; security configuration; Packet Tracer | Passes if SSH or another approved encrypted protocol is configured for every manageable network device and insecure remote-management protocols such as Telnet are disabled. |  |  |
+| **AC-02** | NIS2 Article 21(2)(i): access control and asset management | ISO/IEC 27001:2022 A.8.5 — Secure authentication; CyFun 2025 PR.AA-01.1 and PR.AA-01.2 | Is authentication for network administration centrally managed through AAA, with controlled identities and credentials? | AAA/RADIUS server configuration; device AAA configuration; access-control documentation; Packet Tracer | Passes if the AAA/RADIUS service exists, relevant devices use it, individual administrative identities can be demonstrated and a documented fallback method does not bypass accountability. |  |  |
+| **AC-03** | NIS2 Article 21(2)(i): access control | ISO/IEC 27001:2022 A.8.22 — Segregation of networks | Is the guest network prevented from accessing internal and management networks? | VLAN plan; ACL/firewall configuration; access-control matrix; Packet Tracer tests | Passes if the guest network is separately segmented, can reach only explicitly authorised services such as the internet and cannot reach internal, server or management subnets in negative tests. |  |  |
 
 ---
 
-## Coverage Summary
+## Area 3 — Logging and monitoring
 
-| Area | Checks | Pass | Partial | Fail | Total |
-|------|--------|------|---------|------|-------|
-| **Network Segmentation** | 3 | 1 | 1 | 1 | 3 |
-| **Access Control** | 3 | 1 | 1 | 1 | 3 |
-| **Logging & Monitoring** | 3 | 0 | 0 | 3 | 3 |
-| **Data Protection** | 3 | 0 | 0 | 3 | 3 |
-| **High Availability & Supply Chain** | 3 | 1 | 0 | 2 | 3 |
-| **TOTAL** | 15 | 3 | 2 | 10 | 15 |
+| ID | Requirement | Control reference | Yes/No question | Evidence source | Pass condition | Result | Evidence citation / notes |
+|---|---|---|---|---|---|---|---|
+| **LM-01** | NIS2 Article 21(2)(b) and (f): incident handling and assessment of control effectiveness | ISO/IEC 27001:2022 A.8.15 — Logging | Are relevant security events from in-scope network devices sent to a central logging service? | Syslog design; server configuration; device configurations; Packet Tracer event evidence | Passes if the central log server is documented and each in-scope device is configured to send relevant timestamped events to it; unsupported simulator functions must be recorded as limitations. |  |  |
+| **LM-02** | NIS2 Article 21(2)(b): incident handling | ISO/IEC 27001:2022 A.8.15 — Logging | Does the firewall record relevant permitted, denied and administrative security events and forward them centrally? | Firewall configuration; syslog configuration; test report; Packet Tracer | Passes if logging is enabled for relevant firewall and administrative events and evidence shows forwarding to the central logging service, or the inability to demonstrate this is recorded as not verifiable. |  |  |
+| **LM-03** | GDPR Article 5(1)(e): storage limitation; Article 32 where logs contain personal data | ISO/IEC 27001:2022 A.8.15 — Logging | Is a justified retention period and protected disposal process documented for security logs? | Logging policy; data-retention policy; design dossier | Passes if the retention period, justification, access restrictions and deletion or archival process are documented. A generic example such as “90 days” without justification does not pass. |  |  |
 
-**Pass Rate:** 3/15 (20%) | **Fail Rate:** 10/15 (67%) | **Partial:** 2/15 (13%)
+---
+
+## Area 4 — Data protection and incident readiness
+
+| ID | Requirement | Control reference | Yes/No question | Evidence source | Pass condition | Result | Evidence citation / notes |
+|---|---|---|---|---|---|---|---|
+| **DP-01** | GDPR Article 30 where a record of processing is required; Article 5(2): accountability | ISO/IEC 27001:2022 A.5.9 — Inventory of information and other associated assets; A.5.34 — Privacy and protection of PII | Are the categories, purposes, storage locations and responsible owners of personal data within the audited design documented? | Asset inventory; data-flow or processing records; RFQ; design dossier | Passes if personal-data categories, purposes, systems or locations, responsible owners, recipients and relevant retention information are documented. Identifying only a server VLAN is insufficient. |  |  |
+| **DP-02** | GDPR Article 32(1)(b)–(d): resilience, restoration and regular testing | ISO/IEC 27001:2022 A.8.13 — Information backup | Are critical systems and data covered by documented, protected and tested backup and recovery arrangements? | Backup architecture; recovery procedure; test evidence; design dossier | Passes if backup scope, frequency, storage separation, access protection, recovery objectives and restoration testing are documented. The presence of iSCSI storage alone does not demonstrate a backup. |  |  |
+| **DP-03** | NIS2 Article 21(2)(b): incident handling; GDPR Articles 33–34 when notification conditions are met | ISO/IEC 27001:2022 A.5.24 — Incident management planning and preparation; A.5.26 — Response to information security incidents | Is there a documented incident-response and regulatory-notification procedure with roles, escalation paths and applicable deadlines? | Incident-response plan; notification procedure; contact list; exercise evidence | Passes if roles, escalation, evidence preservation and regulator contacts are defined, including NIS2 stages (24 hours, 72 hours and one month) and GDPR notification within 72 hours when applicable, plus communication to individuals when high risk is established. |  |  |
+
+---
+
+## Area 5 — Availability and supply chain
+
+| ID | Requirement | Control reference | Yes/No question | Evidence source | Pass condition | Result | Evidence citation / notes |
+|---|---|---|---|---|---|---|---|
+| **HA-01** | NIS2 Article 21(2)(c): business continuity and disaster recovery | ISO/IEC 27001:2022 A.8.14 — Redundancy of information processing facilities | Does the routing design avoid a single point of failure and provide tested failover? | Network topology; routing configuration; high-availability design; Packet Tracer tests | Passes if redundant routing components and paths are documented and a test demonstrates that required connectivity continues after failure of one routing component or path. |  |  |
+| **HA-02** | NIS2 Article 21(2)(c): business continuity and disaster recovery | ISO/IEC 27001:2022 A.8.14 — Redundancy of information processing facilities | Is loss of the primary internet gateway addressed by a documented and testable continuity mechanism? | Network topology; edge-router/firewall design; continuity documentation; Packet Tracer | Passes if a second gateway or another documented continuity arrangement exists and failover can be evidenced. If the design contains only one unmitigated gateway, the check fails. |  |  |
+| **SC-01** | NIS2 Article 21(2)(d): supply-chain security | ISO/IEC 27001:2022 A.5.19 — Information security in supplier relationships; A.5.20 — Addressing information security within supplier agreements | Are relevant suppliers and external services identified, with security obligations included in their agreements? | RFQ; supplier list; contracts; Bill of Materials; service documentation | Passes if relevant suppliers and dependencies are listed and agreements define proportionate security requirements, incident notification, responsibilities and review or assurance rights. A vendor list alone is insufficient. |  |  |
 
 ---
 
@@ -88,8 +83,17 @@
 
 ---
 
-## Notes
+| Area | Checks | Pass | Fail | Not verifiable |
+|---|---:|---:|---:|---:|
+| Network segmentation | 3 |  |  |  |
+| Access control | 3 |  |  |  |
+| Logging and monitoring | 3 |  |  |  |
+| Data protection and incident readiness | 3 |  |  |  |
+| Availability and supply chain | 3 |  |  |  |
+| **Total** | **15** |  |  |  |
 
-- **Packet Tracer Limitations:** Dossier documents that SVI ACL enforcement (Catalyst 3650), RADIUS server commands, Syslog on switches/ASA, 802.1X, and iSCSI are not simulated. All findings account for these gaps.
-- **Evidence Quality:** The dossier contradicts itself (Syslog server IP 203.0.113.6 vs 192.168.70.16; "RADIUS PASS" vs "does not function"; "all devices" vs "Leaf-1 only"). See F-GAP-11 (not raised here) for dossier consistency.
-- **Tested Controls:** NS-01 (VLAN design), AC-03 (guest isolation), HA-01 (dual spine) have supporting evidence and pass the checklist.
+---
+
+## Audit note
+
+A blank result means that the check has not yet been executed. A control must not be marked `Pass` solely because it is described in a document: the cited evidence must satisfy the complete pass condition. When Packet Tracer cannot reproduce a production feature, record the limitation and use `Not verifiable / Insufficient evidence` unless other reliable evidence is available.
