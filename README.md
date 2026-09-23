@@ -1,7 +1,7 @@
 # GRC Audit: NVIDIA Regional R&D Hub Network Infrastructure
 
 **Project ID:** NVIDIA-REG-RD-2026-1106  
-**Audit Date:**  September 2026  
+**Audit Date:** September 2026  
 **Status:** FINAL  
 **Client:** NVIDIA Corporation (Brussels)  
 **Frameworks:** ISO 27001:2022, GDPR Article 32, NIS2 Directive, CyberFundamentals (CyFun)
@@ -18,11 +18,9 @@
 
 ---
 
----
-
 ## Executive Summary
 
-This repository contains a **corrected Governance, Risk, and Compliance (GRC) audit** of NVIDIA's Regional R&D Hub network infrastructure. The audit identified **12 findings** — 11 from the 15-control checklist plus 1 supplementary finding raised during evidence review — with **1 CRITICAL and 5 HIGH-risk gaps** that require remediation before production deployment. See `deliverables/Final-Audit-Report.md` for the consolidated report.
+This repository contains a **comprehensive Governance, Risk, and Compliance (GRC) audit** of NVIDIA's Regional R&D Hub network infrastructure. The audit identified **12 findings** — **1 CRITICAL and 5 HIGH-risk gaps** that require remediation before production deployment, plus **6 MEDIUM-risk and 0 LOW-risk items** requiring post-launch attention.
 
 ### Key Findings Summary
 
@@ -30,10 +28,10 @@ This repository contains a **corrected Governance, Risk, and Compliance (GRC) au
 |----------|-------|--------|----------|
 | **CRITICAL** | 1 | Centralized logging incomplete | Must fix before go-live |
 | **HIGH** | 5 | ACLs/DMZ/SSH/RADIUS/FTP weak | Fix within 30 days |
-| **MEDIUM** | 5 | Retention/backup/IR/vendor | Fix within 90 days |
-| **LOW** | 1 | Dossier inconsistency | Accept/defer |
+| **MEDIUM** | 6 | Retention/backup/IR/vendor/edge failover/dossier | Fix within 90 days |
+| **LOW** | 0 | — | — |
 
-### Top 3 Priorities
+### Top 3 Priorities (Before Go-Live)
 
 1. **Enable Syslog on firewall + 7 network devices** (3–5 days, €0)
 2. **Fix DMZ architecture** — add 3rd firewall interface (10–14 days, €5–10k)
@@ -50,38 +48,29 @@ GRC-Audit/
 │
 ├── deliverables/
 │   ├── Final-Audit-Report.md
-│   │   └── Consolidated final report: scope, applicability, all 12 findings, top priorities, go-live gate (start here for the full picture)
+│   │   └── Consolidated final report: scope, applicability, all 12 findings, go-live gate
 │   │
-│   ├── findings/
-│   │   ├── F-01-Critical-Findings.md
-│   │   │   └── 5 critical & high-risk findings with recommendations
-│   │   │
-│   │   ├── F-GAP-12-FTP-Cleartext-Default-Credentials.md
-│   │   │   └── Supplementary finding: Internet-facing FTP, cleartext + default-style credentials
-│   │   │
-│   │   ├── checklist.md
-│   │   │   └── 15 controls assessment (Pass/Partial/Fail)
-│   │   │
-│   │   └── risk-register.md
-│   │       └── All 12 findings with scores, owners, timeline
+│   ├── NIS2-GDPR-Incident-Notification.md
+│   │   └── Completed incident exercise: notification timelines, breach assessment
+│   │
+│   └── findings/
+│       ├── Critical-Findings.md
+│       │   └── 1 critical & 5 high-risk findings (F-GAP-01 to F-GAP-05, F-GAP-12) 6 medium-risk findings (F-GAP-06 to F-GAP-11)
+│       ├── checklist.md
+│       │   └── 15 controls assessment (Pass/Partial/Fail)
+│       │
+│       └── risk-register.md
+│           └── All 12 findings with scores, owners, timelines
 │
 ├── evidence/
 │   ├── design-document/
 │   │   ├── evidence-guide.md
-│   │   │   └── How to cite & verify findings correctly
-│   │   │
 │   │   └── NOTES.md
-│   │       └── External references & standards
 │   │
 │   └── supporting-docs/
 │       ├── applicability-note.md
-│       │   └── Regulatory mapping (ISO, GDPR, NIS2, CyFun)
-│       │
 │       ├── asset-inventory.md
-│       │   └── Network devices, servers, workstations
-│       │
 │       └── scope-statement.md
-│           └── In/out of scope, methodology, limitations
 ```
 
 ---
@@ -90,30 +79,26 @@ GRC-Audit/
 
 ### For Project Managers
 1. Read this README (5 min)
-2. Read: `deliverables/Final-Audit-Report.md` — the consolidated final report (scope, applicability, all 12 findings, priorities, go-live gate)
-3. Review: `deliverables/findings/risk-register.md` — All findings, scores, timeline
-4. Plan: Resource the remediation tracks; assign owners
+2. Read: `deliverables/Final-Audit-Report.md` — Consolidated report with priorities & go-live gate
+3. Review: `deliverables/findings/risk-register.md` — All findings with timelines
+4. Plan: Resource remediation tracks and assign owners
 
 ### For Technical Teams
-1. Review: `deliverables/findings/F-01-Critical-Findings.md` — Each finding has:
-   - What failed (Observation)
-   - Why it matters (Compliance impact)
-   - How to fix (Recommendation + timeline)
-2. Cross-check: `evidence/supporting-docs/` — Understand scope & evidence
-3. Remediate: Follow owner + timeline in risk register
-4. Validate: Re-test on production hardware
+1. Review: `deliverables/findings/F-01-Critical-Findings.md` — 5 high-priority findings
+2. Review: `deliverables/findings/F-GAP-06-to-11-Additional-Findings.md` — 6 medium findings
+3. Check: `deliverables/findings/F-GAP-12-FTP-Cleartext-Default-Credentials.md` — FTP issue
+4. Follow: Owner + timeline in risk register for remediation
 
 ### For Security/Compliance Teams
-1. Understand scope: `evidence/supporting-docs/applicability-note.md`
-2. Know the controls: `deliverables/findings/checklist.md`
-3. Track progress: Update risk register as remediation completes
-4. Verify: Re-validate findings before go-live
+1. Understand: `evidence/supporting-docs/applicability-note.md`
+2. Know controls: `deliverables/findings/checklist.md`
+3. Review incident readiness: `deliverables/NIS2-GDPR-Incident-Notification.md`
+4. Track progress: Update risk register as remediation completes
 
 ### For Auditors/Reviewers
 1. Methodology: `evidence/supporting-docs/scope-statement.md`
-2. Evidence chain: Follow citations to source documents
-3. Evidence verification: Use `evidence/design-document/evidence-guide.md`
-4. Risk ratings: Check consistency in risk register
+2. Evidence verification: `evidence/design-document/evidence-guide.md`
+3. Risk consistency: `deliverables/findings/risk-register.md`
 
 ---
 
@@ -121,24 +106,23 @@ GRC-Audit/
 
 ### Coverage
 - **Frameworks:** 4 (ISO 27001:2022, GDPR, NIS2, CyFun)
-- **Controls:** 15 (across 5 areas)
-- **Findings:** 12 (1 CRITICAL, 5 HIGH, 5 MEDIUM, 1 LOW)
-- **Network Devices:** 12 (Spines, Leaves, routers, firewall)
-- **Total Assets:** 82 (devices, servers, workstations)
+- **Controls:** 15 (across 5 areas: Network Segmentation, Access Control, Logging, Data Protection, HA/Supply Chain)
+- **Findings:** 12 (1 CRITICAL, 5 HIGH, 6 MEDIUM, 0 LOW)
+- **Network Devices:** 12 (2 Spines, 3 Leaves, 6 access switches, 1 firewall, 2 edge routers)
+- **Total Assets:** 71 (14 devices, 9 servers, 48 workstations)
 
 ### Control Assessment
-| Result | Count | Controls |
-|--------|-------|---------|
-| ✅ Pass | 3 | VLAN design, guest isolation, dual spine |
-| 🟡 Partial | 2 | ACLs configured but not enforced; DMZ weak |
-| ❌ Fail | 10 | Logging, RADIUS, SSH, retention, backup, IR, redundancy, vendor SLA |
+| Result | Count |
+|--------|-------|
+| ✅ Pass | 3 |
+| 🟡 Partial | 2 |
+| ❌ Fail | 10 |
 
 ### Timeline
-| Phase | Timeline | Priority |
-|-------|----------|----------|
-| **Before Go-Live** | 3–30 days | CRITICAL + HIGH (5 findings) |
-| **Post-Launch** | 30–90 days | MEDIUM (5 findings) |
-| **Deferred** | 6+ months | LOW (1 finding) |
+| Phase | Timeline | Count |
+|-------|----------|-------|
+| Before Go-Live | 3–30 days | 6 findings (1 CRITICAL + 5 HIGH) |
+| Post-Launch | 30–90 days | 6 findings (MEDIUM) |
 
 ---
 
@@ -151,110 +135,24 @@ GRC-Audit/
 | **Network Segmentation** | 3 | 1 | 1 | 1 | ACLs not enforced (HIGH) |
 | **Access Control** | 3 | 1 | 1 | 1 | RADIUS broken, SSH incomplete (HIGH) |
 | **Logging & Monitoring** | 3 | 0 | 0 | 3 | No firewall/switch logs (CRITICAL) |
-| **Data Protection** | 3 | 0 | 0 | 3 | No backup/IR/retention (MEDIUM) |
-| **High Availability & Supply Chain** | 3 | 1 | 0 | 2 | Single edge router, no vendor SLA (MEDIUM) |
-| **TOTAL** | **15** | **3** | **2** | **10** | **1 CRITICAL + 4 HIGH** |
+| **Data Protection** | 3 | 0 | 0 | 3 | No backup/IR/retention/data inventory (MEDIUM) |
+| **HA & Supply Chain** | 3 | 1 | 0 | 2 | Single edge router/firewall, no vendor SLA (MEDIUM) |
+| **TOTAL** | **15** | **3** | **2** | **10** | **1 CRITICAL + 5 HIGH** |
 
-### Risk Scale (Likelihood × Impact)
-
-- **Likelihood 1–3:** Low (control exists) → Medium (partial) → High (no barrier)
-- **Impact 1–3:** Low (limited) → Medium (one sector) → High (perimeter/core)
+### Risk Scale
 - **Score:** 1–2 = LOW | 3–4 = MEDIUM | 6 = HIGH | 9 = CRITICAL
+- **Formula:** Likelihood (1–3) × Impact (1–3)
 
 ---
 
-## 📄 Document Descriptions
+## 📄 Quick Reference
 
-### `deliverables/findings/F-01-Critical-Findings.md`
-**11 Findings (5 detailed below)**
+### Files by Audience
 
-1. **F-GAP-01: Logging Incomplete (CRITICAL)**
-   - Firewall and switches not forwarding logs to Syslog server
-   - Impact: Cannot detect incidents; violates NIS2 24h notification SLA
-   - Fix: Enable Syslog on 8 devices (3–5 days, €0)
-
-2. **F-GAP-02: ACLs Not Enforced (HIGH)**
-   - Department ACLs configured but not actively enforcing traffic rules
-   - Impact: Inter-VLAN isolation not verified
-   - Fix: Verify ACL enforcement on production hardware (14 days)
-
-3. **F-GAP-03: DMZ Topology Weak (HIGH)**
-   - DMZ and internal networks on same switch; firewall doesn't inspect DMZ↔Internal traffic
-   - Impact: Compromise of public-facing server can reach internal systems
-   - Fix: Add 3rd firewall interface or re-architect (10–14 days, €5–10k)
-
-4. **F-GAP-04: SSH Incomplete (HIGH)**
-   - SSH configured on 3 of 8 Layer 3 devices; 5 lack SSH, exposing Telnet
-   - Impact: Management traffic unencrypted; credentials at risk (GDPR Art. 32)
-   - Fix: Enable SSH on remaining devices (7 days, €0)
-
-5. **F-GAP-05: RADIUS Nonfunctional (HIGH)**
-   - RADIUS server configuration fails; falls back to weak local credentials
-   - Impact: Authentication weak; credentials reused (Cisco123, 8 chars, RSA 1024)
-   - Fix: Deploy real RADIUS; upgrade credentials (30 days, labor only)
-
-**+ 6 Medium/Low Findings** documented in full checklist and risk register.
-
-### `deliverables/findings/checklist.md`
-**15 Security Controls Assessment**
-
-- Each control defined with pass condition
-- Evidence cited from network design documents
-- Result: Pass ✅ / Partial 🟡 / Fail ❌
-- Traces to specific finding (F-GAP-01, etc.)
-
-### `deliverables/findings/risk-register.md`
-**All 11 Findings with**
-
-- Observation (what is wrong)
-- Evidence citation (where in dossier)
-- Risk assessment (Likelihood × Impact score)
-- Recommendation (owner, timeline, cost, acceptance criteria)
-- Go-live criteria (what must be fixed before production)
-
-### `evidence/supporting-docs/applicability-note.md`
-**Regulatory Mapping**
-
-- **ISO 27001:2022** — Information security controls (31% coverage: 15 of 48 controls)
-- **GDPR Article 32** — Technical measures for personal data protection
-- **NIS2 Directive** — Network & information security; NVIDIA = "Important Entity"
-- **CyFun 2025** — Belgium's de facto NIS2 compliance framework
-
-### `evidence/supporting-docs/asset-inventory.md`
-**Complete Asset Listing**
-
-- **Network Devices:** 2 Spines + 3 Leaves + 6 access switches + 1 firewall + 2 routers
-- **Servers:** 9 (DNS, DHCP, RADIUS, compute, FTP, Syslog, iSCSI)
-- **Workstations:** 48 standard + 10 GPU-accelerated
-- **Data Flows:** Mapped by VLAN and sensitivity
-- **Valuation:** €264k new / €160k refurbished
-
-### `evidence/supporting-docs/scope-statement.md`
-**Audit Scope & Methodology**
-
-- **In-Scope:** Network architecture, segmentation, access control, logging, perimeter security, HA
-- **Out-of-Scope:** Endpoints, applications, IAM platforms, incident response procedures, training
-- **Limitations:** Packet Tracer simulator has 10 known gaps; production validation required
-- **Assumptions:** Devices functional as configured, PT simulation accurate (except documented gaps)
-
-### `evidence/design-document/evidence-guide.md`
-**How to Cite & Verify Findings**
-
-- Correct citation format (document name + section + quote)
-- Red flags (evidence not found, contradictions, PT limitations)
-- Verification checklist before submitting
-- Document location map (all evidence sources)
-
-### `evidence/design-document/NOTES.md`
-**External References & Standards**
-
-- ISO 27001:2022 (links, key clauses)
-- GDPR (Articles 5, 32, 33, 34)
-- NIS2 Directive (Article 21, Belgium Act 26 April 2024)
-- CyFun 2025 (6 functions, Belgium compliance)
-- Cisco network device documentation
-- NIST CSF, RADIUS/SSH/Syslog RFCs
-- Belgium-specific contacts (CCB, ADPD, CISA)
+**Decision Makers:** README → Final-Audit-Report.md → risk-register.md  
+**Technical Teams:** README → F-01-Critical-Findings.md → F-GAP-06-to-11-Additional-Findings.md → F-GAP-12  
+**Compliance:** applicability-note.md → checklist.md → NIS2-GDPR-Incident-Notification.md  
+**Auditors:** scope-statement.md → evidence-guide.md → risk-register.md
 
 ---
 
@@ -267,52 +165,37 @@ GRC-Audit/
    - Recommendation: How to fix it
 
 2. **Read the Dossier's Admissions**
-   - The contractor documented its own limitations (Packet Tracer constraints, RADIUS issues, Syslog gaps, VLAN 1 not hardened)
-   - Those admissions **become your findings**, not excuses
+   - The contractor documented its own limitations (Packet Tracer, RADIUS, Syslog)
+   - Those admissions **become findings**, not excuses
 
 3. **Simulator ≠ Production**
-   - Packet Tracer has 10 known limitations
+   - Packet Tracer has 10 known gaps
    - Before go-live, **validate on real hardware**
-   - SVI ACL enforcement, RADIUS, Syslog, 802.1X must be tested on production devices
+   - SVI ACL, RADIUS, Syslog, 802.1X must be tested on production devices
 
 4. **Consistency Is Critical**
    - Every finding links to a checklist item
    - Every rating follows the same scale
    - README, risk register, and findings all tell the same story
-   - If they disagree, fix it before submitting
-
-
----
-**Framework Versions:** ISO 27001:2022, GDPR (current), NIS2 (2022), CyFun 2025
-
-For detailed guidance, see individual documents in `deliverables/` and `evidence/`.
 
 ---
 
 ## 🏆 About Control Freaks
 
-This audit was conducted by **Control Freaks**, a specialized GRC audit team comprised of:
+**Madumathi Singaraju** — Technical Network Auditor  
+Deep expertise in network design and Cisco device configuration. Led review of Packet Tracer simulation, VLAN segmentation, ACLs, firewall rules, and DMZ architecture. Ensured all technical findings are grounded in actual configuration evidence.
 
-**Madumathi Singaraju** — Technical Network Auditor
-- Deep expertise in network design and Cisco device configuration
-- Led review of Packet Tracer simulation, VLAN segmentation, ACLs, firewall rules, and DMZ architecture
-- Ensured all technical findings are grounded in actual configuration evidence
+**Hanah Marroun** — Regulatory & Compliance Auditor  
+Specialized knowledge in GDPR, ISO 27001:2022, NIS2 Directive, and CyberFundamentals framework. Prepared the applicability note establishing legal foundation for audit scope. Validated all framework references and compliance requirements.
 
-**Hanah Marroun** — Regulatory & Compliance Auditor
-- Specialized knowledge in GDPR, ISO 27001:2022, NIS2 Directive, and CyberFundamentals framework
-- Prepared the applicability note establishing legal foundation for audit scope
-- Validated all framework references and compliance requirements
-
-**Sajjad Shahpoor** — Audit Coordinator, Risk & Reporting
-- Coordinated end-to-end audit execution and stakeholder communication
-- Reviewed logging (Syslog), AAA (RADIUS), and availability (redundancy) controls
-- Built the risk register with consistent ratings, established remediation timeline, and delivered final presentation and reporting materials
-
-Together, Control Freaks delivered a comprehensive, evidence-based audit bridging technical reality and regulatory compliance.
+**Sajjad Shahpoor** — Audit Coordinator, Risk & Reporting  
+Coordinated end-to-end audit execution and stakeholder communication. Reviewed logging (Syslog), AAA (RADIUS), and availability (redundancy) controls. Built the risk register with consistent ratings and established remediation timeline.
 
 ---
+
 ## 📌 License
-This repository is an Educational / Academic Cisco Packet Tracer Simulation Project. It is intended solely for instructional and portfolio demonstration purposes.
+Educational / Academic Cisco Packet Tracer Simulation Project — For instructional and portfolio demonstration purposes only.
 
 ---
+
 *"An audit is only as good as the team executing it. Control Freaks brought technical rigor, compliance expertise, and coordinated execution to deliver this assessment."*
