@@ -8,7 +8,7 @@
 
 ---
 
-## Overview
+## AREA 1: NETWORK SEGMENTATION (3 checks)
 
 This checklist contains 15 checks across five audit areas. Each check is linked to an applicable regulatory requirement and to a recognised control framework. Results must be based on cited evidence from the RFQ, the delivered design documents and the Packet Tracer configuration.
 
@@ -66,7 +66,22 @@ This checklist contains 15 checks across five audit areas. Each check is linked 
 
 ---
 
-## Summary
+## Findings Raised
+
+| ID | Title | Check(s) | Priority | Risk Score |
+|----|-------|----------|----------|---|
+| **F-GAP-01** | Centralized logging incomplete; firewall/switches not forwarding | LM-01, LM-02 | CRITICAL | 3×3 = 9 |
+| **F-GAP-02** | Department ACLs configured but not enforced | NS-02 | HIGH | 2×3 = 6 |
+| **F-GAP-03** | DMZ isolation depends on unenforced ACL; two-interface firewall limits control | NS-03 | HIGH | 2×3 = 6 |
+| **F-GAP-04** | SSH management not deployed to 5 of 8 Layer 3 devices | AC-01 | HIGH | 2×3 = 6 |
+| **F-GAP-05** | RADIUS non-functional; local credentials only; weak key material | AC-02 | HIGH | 2×3 = 6 |
+| **F-GAP-06** | No log retention policy documented | LM-03 | MEDIUM | 2×2 = 4 |
+| **F-GAP-07** | No backup design, data inventory, or restore testing | DP-01, DP-02 | MEDIUM | 2×2 = 4 |
+| **F-GAP-08** | No 24/7 incident response; support only Mon-Fri 08-18 | DP-03 | MEDIUM | 2×2 = 4 |
+| **F-GAP-09** | Single points of failure at Internet edge (1 router, 1 firewall, 1 Syslog) | HA-02 | MEDIUM | 1×3 = 3 |
+| **F-GAP-10** | No security requirements in supplier contract; refurbished hardware option | SC-01 | MEDIUM | 2×2 = 4 |
+
+---
 
 | Area | Checks | Pass | Fail | Not verifiable |
 |---|---:|---:|---:|---:|
